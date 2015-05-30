@@ -1,0 +1,32 @@
+enum Functions
+{
+    e = 0,
+    ln, 
+    ax,
+    b,
+    sqrtXExpA,
+    cos,
+    arccos,
+    sin,
+    arcsin,
+    sinh,
+    arcsinh,
+    cosh,
+    arccosh,
+    tan,
+    arctan,
+    tanh,
+    arctanh,
+
+    numFunctions
+}
+
+enum Operators
+{
+    plus = 0,
+    minus,
+    mult,
+    div,
+
+    numOperators
+}
