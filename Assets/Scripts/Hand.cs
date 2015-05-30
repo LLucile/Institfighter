@@ -8,10 +8,7 @@ public class Hand : MonoBehaviour {
 	Card CR = new Card();
 	Card CT = new Card();
 	Card CB = new Card();
-	int TL = 0;
-	int TR = 0;
-	int TT = 0;
-	int TB = 0;
+	int T = 0;
 	// Use this for initialization
 	void Start () {
 		// TODO get some random cards
@@ -20,23 +17,11 @@ public class Hand : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//update timers
-		TL = TL - Time.deltaTime;
-		TR = TR - Time.deltaTime;
-		TT = TT - Time.deltaTime;
-		TB = TB - Time.deltaTime;	
+		T = T - Time.deltaTime;
 	}
 
 	public int GetHandSlotWaitingTime(Actions a){
-		switch (a) {
-			case Actions.Left:
-				return TL;
-			case Actions.Right:
-				return TR;
-			case Actions.Bottom:
-				return TB;
-			case Actions.Top:
-				return TT;
-		}	
+		return T;
 	}
 
 	public Card GetHandSlotCard(Actions a){
@@ -53,36 +38,24 @@ public class Hand : MonoBehaviour {
 	
 	}
 
-	public void SetHandSlotCard(Actions a, int time){
-		switch (a) {
-			case Actions.Left:
-				TL = time;
-			case Actions.Right:
-				TR = time;
-			case Actions.Bottom:
-				TB = time;
-			case Actions.Top:
-				TT = time;
-		}
+	public void SetHandSlotTime(int time){
+		T = time;
 	}
-
-	public void StartTimer(int timing){
-		if (TL > 10000) {
-			TL = timing;
-		}
-		if (TT > 10000) {
-			TT = timing;
-		}
-		if (TB > 10000) {
-			TB = timing;
-		}
-		if (TR > 10000) {
-			TR = timing;
-		}	
-	}
+	
 
 	public Card GetNewCards(){
-	
+		if ((TL < 10000) && (TL > 0)) {
+
+		}
+		if ((TL < 10000) && (TL > 0)) {
+			
+		}
+		if ((TL < 10000) && (TL > 0)) {
+			
+		}
+		if ((TL < 10000) && (TL > 0)) {
+			
+		}
 	}
 
 
