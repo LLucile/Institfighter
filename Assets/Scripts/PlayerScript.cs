@@ -2,100 +2,78 @@
 using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
-	
-	//Attributes
-	//controls
+	// Attributes
+	// controls
 	public string sButton1 = "Horizontal";
 	public string sButton2 = "Vertical";
 	public string sButtonValidate = "Ok";
 	public string sButtonCancel = "Back";
-	
-	//other attributes
-	private Card[] cards = new Card[3];
-	private Card[] expression = new Card[2];
-	public float opponentScore = 0;
+
+	//oponnent score
+	public float opponentScore = 10;
+
+	// hand
+	public Hand ownCards = new Hand();
+
+	// expression browsing variables
 	private int expressionScroller = 0;
-	
+	private Card[] expression = new Card[2];
+
+	// some useful variables
+	private int lastAction = null;
+
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 3; i ++) {
-			// TODO get a set of random cards
-		}
-	}
-	
-	void Update () {
-		// get input
-		int inputC0 = false;
-		int inputC1 = false;
-		int inputC2 = false;
-		int inputC3 = false;
-		int h = Input.GetButtonDown (sbutton1);
-		int v = Input.GetButtonDown (sbutton2);
-		if (h < -0.5) {
-			inputC0 = true;
-		}
-		if (h > 0.5) {
-			inputC1 = true;
-		}
-		if (v > 0.5) {
-			inputC2 = true;
-		}
-		if (v < -0.5) {
-			inputC3 = true;
-		}
-		int inputValidate = Input.GetButtonDown (sButtonValidate);
-		int inputCancel = Input.GetButtonDown (sButtonCancel);
 
-		// compose expression
-		if (inputC1) {
-			expression [expressionScroller] = cards[0];
-			// TODO display function or operator
-			expressionScroller ++;
+	} 
+
+	void Update(){
+		// get the user input
+		int tempx = GetAction ();
+
+		if (tempx < 4) { //if the user tried to select a card
+			int waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
+			if(waitingTime <= 0){ // if the card is immediatly available
+				// add IT to the expression and set it as unavailable in the hand
+				lastAction = tempx;
+				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
+				expressionScroller ++;
+				ownCards.SetHandSlotCard(Mathf.Infinity);
+			}
 		}
-		if (inputC2) {
-			expression [expressionScroller] = cards[1];
-			// TODO display function or operator
-			expressionScroller ++;
-		}
-		if (inputC3) {
-			expression [expressionScroller] = cards[2];
-			// TODO display function or operator
-			expressionScroller ++;
-		}
-		if (inputC4) {
-			expression [expressionScroller] = cards[3];
-			// TODO display function or operator
-			expressionScroller ++;
-		}
-		if (inputCancel) {
-			expression [expressionScroller] = null;
-			// TODO display function or operator
+		if (tempx == Actions.Cancel) {
+			expression[expressionScroller] = null;
+			ownCards.SetHandSlotCard(0);
 			expressionScroller --;
 		}
-		
-		// attribute score
-		if(inputValidate){
-			if(IsValidExpression ()){
-				// compute new opponent score
+		if(IsValidExpression() ){
+			// TODO display that the expression is valid
+			if(tempx = Actions.Validate){
+				ownCards.SetHandSlotTime(5*CountCard ());
+
+				//check that the calculus is mathematically ok
 				int tempScore = ComputeOpponentScore ();
 				if(tempScore != null){
-					opponentScore = tempscore;
+					opponentScore = tempScore;
 				}
 				else{
-					// TODO forbidden mathematical operation feedback
+					// TODO forbidden mathematical operation feedback (0 points)
 				}
-				//reset expression to void
 				expressionScroller = 0;
 				expression[0] = null;
 				expression[1] = null;
 				expression[2] = null;
-			}
-			else{
-				// TODO Not valid expression feedback
+				ownCards.GetNewCards();
 			}
 		}
+		else{
+			//TODO display that it is not a valid expression
+		}
+
+		// check 
+		
 	}
-	
+
 	private float ComputeOpponentScore(){
 		if ( (expression [0] != null) && (expression [0] is Function) ) {
 			int score0 = expression [0].Execute (opponentScore);
@@ -120,8 +98,45 @@ public class PlayerScript : MonoBehaviour {
 		}
 		return score3;
 	}
-	
-	private bool IsValidExpression(){
+
+	Actions GetAction(){
+		int h = Input.GetButtonDown (sbutton1);
+		int v = Input.GetButtonDown (sbutton2);
+		if (h < -0.5) {
+			return Actions.Left;
+		}
+		if (h > 0.5) {
+			return Actions.Right;
+		}
+		if (v > 0.5) {
+			return Actions.Top;
+		}
+		if (v < -0.5) {
+			return Actions.Bottom;
+		}
+		if (Input.GetButtonDown (sButtonValidate)) {
+			return Actions.Validate;
+		}
+		if (Input.GetButtonDown (sButtonCancel)) {
+			return Actions.Cancel;
+		}
+	}
+
+	int CountCard(){
+		int n = 0;
+		if (expression [0] != null)
+			n++;
+
+		if (expression [1] != null)
+			n++;
+
+		if (expression [2] != null)
+			n++;
+
+		return n;
+	}
+
+	bool IsValidExpression(){
 		if (expression [0] != null) {
 			if (expression [0] is Fonction) {
 				if (expression [1] == null) {
@@ -159,5 +174,5 @@ public class PlayerScript : MonoBehaviour {
 			return false;
 		}
 	}
-}		
 
+}
