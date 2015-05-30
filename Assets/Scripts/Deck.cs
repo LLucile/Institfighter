@@ -4,7 +4,6 @@ using System.Collections;
 public class Deck : MonoBehaviour {
 
 	public Card[] cards;
-
 	public static Deck instance;
 
 	// Use this for initialization
