@@ -1,68 +1,66 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
-public static class Deck : MonoBehaviour {
+public class Deck : MonoBehaviour {
+	
+	public List<Operateur> ope;
+	public List<Fonction> fun;
 
-	public List<Operateur> ope = new List<Operator>();
-	public List<Fonction> fun = new List<Function>();
+	public Deck(){
+		List<Operateur> ope = new List<Operateur>();
+		List<Fonction> fun = new List<Fonction>();
+	
+		// -------------------------------------------------------------
+		//     INITIALISATION DES CARTES
+		// -------------------------------------------------------------
 
-	// -------------------------------------------------------------
-	// 	INITIALISATION DES CARTES
-	// -------------------------------------------------------------
-	ope.Add(new Operateur()  {weight=5, Operator=Plus});
-	ope.Add(new Operateur()  {weight=5, Operator=Minus});
-	ope.Add(new Operateur()  {weight=3, Operator=Multiply});
-	ope.Add(new Operateur()  {weight=3, Operator=Divide});
-
-	fun.Add(new Fonction()   {weight=3 ,Function=e 			,name="Exponetielle"});
-	fun.Add(new Fonction()   {weight=3 ,Function=ln 		,name="Logarithme" });
-	fun.Add(new Fonction()   {weight=10,Function=ax 		,name="Linéaire"});
-	fun.Add(new Fonction()   {weight=10,Function=b 			,name="constante"});
-	fun.Add(new Fonction()   {weight=5 ,Function=sqrtXExpA 	,name="racine n-ieme"});
-	fun.Add(new Fonction()   {weight=5 ,Function=cos 		,name="cosinus"});
-	fun.Add(new Fonction()   {weight=5 ,Function=arccos 	,name="arc-cosinus"});
-	fun.Add(new Fonction()   {weight=5 ,Function=sin 		,name="sinus"});
-	fun.Add(new Fonction()   {weight=5 ,Function=arcsin 	,name="arc-sin"});
-	fun.Add(new Fonction()   {weight=5 ,Function=sinh 		,name="sinus hyperbolique"});
-	fun.Add(new Fonction()   {weight=5 ,Function=arcsinh 	,name="arc-sinus"});
-	fun.Add(new Fonction()   {weight=5 ,Function=cosh 		,name="cosinus hyperbolique"});
-	fun.Add(new Fonction()   {weight=5 ,Function=arccosh 	,name="arc-cosinus hyperbolique"});
-	fun.Add(new Fonction()   {weight=5 ,Function=tan 		,name="tangente"});
-	fun.Add(new Fonction()   {weight=5 ,Function=arctan 	,name="arc-tangeante"});
-	fun.Add(new Fonction()   {weight=5 ,Function=tanh 		,name="tangente hyperbolique"});
-	fun.Add(new Fonction()   {weight=5 ,Function=arctanh 	,name="arc-tangeante hyperbolique"});
-
-
-	// ---------------------------------------------------------------
-	// METHODES
-	// =--------------------------------------------------------------
-
-	Operateur Pick(int chooser){
-		int cumsum;
-
+		ope.Add(new Operateur(5, Operators.Plus));
+		ope.Add(new Operateur(5, Operators.Minus));
+	    ope.Add(new Operateur(3, Operators.Multiply));
+	    ope.Add(new Operateur(3, Operators.Divide));
+	    fun.Add(new Fonction(3 ,Functions.e            ,"Exponetielle"));
+	    fun.Add(new Fonction(3 ,Functions.ln           ,"Logarithme"));
+	    fun.Add(new Fonction(10,Functions.ax           ,"Linéaire"));
+	    fun.Add(new Fonction(10,Functions.b            ,"constante"));
+	    fun.Add(new Fonction(5 ,Functions.sqrtXExpA    ,"racine nieme"));
+	    fun.Add(new Fonction(5 ,Functions.cos          ,"cosinus"));
+	    fun.Add(new Fonction(5 ,Functions.arccos       ,"arc-cosinus"));
+	    fun.Add(new Fonction(5 ,Functions.sin          ,"sinus"));
+	    fun.Add(new Fonction(5 ,Functions.arcsin       ,"arc-sin"));
+	    fun.Add(new Fonction(5 ,Functions.sinh         ,"sinus hyperbolique"));
+	    fun.Add(new Fonction(5 ,Functions.arcsinh      ,"arc-sinus"));
+	    fun.Add(new Fonction(5 ,Functions.cosh         ,"cosinus hyperbolique"));
+	    fun.Add(new Fonction(5 ,Functions.arccosh      ,"arc-cosinus hyperbolique"));
+	    fun.Add(new Fonction(5 ,Functions.tan          ,"tangente"));
+	    fun.Add(new Fonction(5 ,Functions.arctan       ,"arc-tangeante"));
+	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
+	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
+        Card p = this.Pick();
+        Console.WriteLine(p.weight);
+	}
+    // ---------------------------------------------------------------
+    // METHODES
+    // ---------------------------------------------------------------
+	        
+    public Card Pick(){
+		int cumsum=0,r;
+		Card O=ope[0];
 		// sort the cards
-		double sum = ope.Sum(P=>P.weight);
+		float sum = ope.Sum(P=>P.weight);
+		r = (int) UnityEngine.Random.Range(1f,sum);
 		// Console.WriteLine(sum);
 		ope = ope.OrderBy(o=>o.weight).ToList();
-
 		for(int i=0; i<ope.Count;i++){
 			cumsum += ope[i].weight;
-			if(cumsum > chooser){
-				return ope[i];
+			if(cumsum > r){
+				O = ope[i];
+				break;
 			}
 		}
-	}
-
-	Fonction Pick(int chooser){
-		int cumsum;
-		fun = fun.OrderBy(o=>o.weight).ToList();
-
-		for(int i=0; i<fun.Count;i++){
-			cumsum += fun[i].weight;
-			if(cumsum > chooser){
-				return fun[i];
-			}
-		}
+		return O;
 	}
 	
 }
