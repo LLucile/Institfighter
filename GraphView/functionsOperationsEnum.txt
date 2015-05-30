@@ -1,32 +1,33 @@
 enum Functions
 {
-    e = 0,
-    ln, 
-    ax,
-    b,
-    sqrtXExpA,
-    cos,
-    arccos,
-    sin,
-    arcsin,
-    sinh,
-    arcsinh,
-    cosh,
-    arccosh,
-    tan,
-    arctan,
-    tanh,
-    arctanh,
+    fn_exp = 0,
+    fn_ln     ,
+    fn_ax     ,
+    fn_b      ,
+    fn_sqrt   ,
+    fn_pow    ,
+    fn_sin    ,
+    fn_arcsin ,
+    fn_sinh   ,
+    fn_arcsinh,
+    fn_cos    ,
+    fn_arccos ,
+    fn_cosh   ,
+    fn_arccosh,
+    fn_tan    ,
+    fn_arctan ,
+    fn_tanh   ,
+    fn_arctanh,
 
     numFunctions
-}
+};
 
 enum Operators
 {
-    plus = 0,
-    minus,
-    mult,
-    div,
+    op_plus = 0,
+    op_minus,
+    op_mult,
+    op_div,
 
     numOperators
-}
+};
