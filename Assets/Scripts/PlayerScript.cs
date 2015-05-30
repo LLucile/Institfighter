@@ -38,18 +38,18 @@ public class PlayerScript : MonoBehaviour {
 				lastAction = tempx;
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
 				expressionScroller ++;
-				ownCards.SetHandSlotCard(lastAction, Mathf.Infinity);
+				ownCards.SetHandSlotCard(Mathf.Infinity);
 			}
 		}
 		if (tempx == Actions.Cancel) {
 			expression[expressionScroller] = null;
-			ownCards.SetHandSlotCard(lastAction, 0);
+			ownCards.SetHandSlotCard(0);
 			expressionScroller --;
 		}
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx = Actions.Validate){
-				ownCards.StartTimer(10);
+				ownCards.SetHandSlotTime(5*CountCard ());
 
 				//check that the calculus is mathematically ok
 				int tempScore = ComputeOpponentScore ();
@@ -120,6 +120,20 @@ public class PlayerScript : MonoBehaviour {
 		if (Input.GetButtonDown (sButtonCancel)) {
 			return Actions.Cancel;
 		}
+	}
+
+	int CountCard(){
+		int n = 0;
+		if (expression [0] != null)
+			n++;
+
+		if (expression [1] != null)
+			n++;
+
+		if (expression [2] != null)
+			n++;
+
+		return n;
 	}
 
 	bool IsValidExpression(){
