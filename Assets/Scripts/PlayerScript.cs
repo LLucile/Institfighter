@@ -24,13 +24,10 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		for (int i = 0; i < 3; i ++) {
-			// TODO get a set of random cards and set them to ownCards
-		}
+
 	} 
 
 	void Update(){
-		ownHand.UpdateTimer ();
 		// get the user input
 		int tempx = GetAction ();
 
@@ -52,7 +49,7 @@ public class PlayerScript : MonoBehaviour {
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx = Actions.Validate){
-				ownHand.StartTimer(10);
+				ownCards.StartTimer(10);
 
 				//check that the calculus is mathematically ok
 				int tempScore = ComputeOpponentScore ();
