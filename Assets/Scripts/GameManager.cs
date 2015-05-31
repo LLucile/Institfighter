@@ -9,12 +9,6 @@ public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
 	public static Deck heap;
-<<<<<<< HEAD
-=======
-	void Start () {
-		heap = new Deck();
-	}
->>>>>>> origin/master
 	protected GameManager() {}
 	private static GameManager instance = null;
 	public event OnStateChangeHandler OnStateChange;
@@ -22,7 +16,6 @@ public class GameManager : MonoBehaviour {
 
 	void Start() {
 		heap = new Deck();
-		Debug.Log("first card is" + heap.operator[0]);
 	}
 	
 	public static GameManager Instance{

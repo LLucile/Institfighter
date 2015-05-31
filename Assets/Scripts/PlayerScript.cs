@@ -32,11 +32,7 @@ public class PlayerScript : MonoBehaviour {
 		// get the user input
 		Actions tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-<<<<<<< HEAD
-			// Debug.Log ("Got Action : "+ (int) tempx);
-=======
-			Debug.Log ((int) tempx);
->>>>>>> origin/master
+
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
@@ -51,11 +47,7 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if (tempx == Actions.Cancel) {
-<<<<<<< HEAD
-			Debug.Log ("Received Cancel order");
-=======
-			Debug.Log ("Cancel !");
->>>>>>> origin/master
+
 			expression[expressionScroller] = null;
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
