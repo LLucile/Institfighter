@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// expression browsing variables
 	private int expressionScroller = 0;
-	private Card[] expression = new Card[2];
+	private Card[] expression = new Card[3];
 
 	// some useful variables
 	private Actions lastAction = Actions.None;
@@ -32,9 +32,10 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		// get the user input
+		//Debug.Log ("w i");
 		Actions tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-
+			Debug.Log ("Card Selection : " + tempx);
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
@@ -60,7 +61,7 @@ public class PlayerScript : MonoBehaviour {
 			if(tempx == Actions.Validate){
 				Debug.Log ("validate !");
 				ownCards.SetHandSlotTime(5*CountCard ());
-
+				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
 				if(tempScore != null){
@@ -91,15 +92,16 @@ public class PlayerScript : MonoBehaviour {
 		float? score1 = null;
 		float? score2 = null;
 		if (expression [0] is Fonction) {
-			Fonction Firstmember = (Fonction) expression [0];
+			Fonction Firstmember = expression [0] as Fonction;
 			score0 = Firstmember.Execute(opponentScore);
 			if(Firstmember.Function == Functions.b){
-				Operateur Secondmember = (Operateur) expression[1];
+				Operateur Secondmember = expression[1] as Operateur;
+				Debug.Log ("Is Second member operator null ?" + (Secondmember != null));
+				Debug.Log("Functions are " + Firstmember.name + " "+ Secondmember.name);
 				return Secondmember.Execute(opponentScore, Firstmember.Execute(opponentScore));
 			}
 			else{
-				Operateur Secondmember = (Operateur) expression[1];
-				Fonction Thirdmember = (Fonction) expression[2];
+				Debug.Log("Functions are " + Firstmember.name + " "+ Secondmember.name+ " "+ Thirdmember.name);
 				score0 = Firstmember.Execute(opponentScore);
 				score2 = Thirdmember.Execute(opponentScore);
 				score1 = Secondmember.Execute(score0, score2);
@@ -107,8 +109,8 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		else {
-			Operateur Firstmember = (Operateur) expression[0];
-			Fonction Secondmember = (Fonction) expression[1];
+			Operateur Firstmember = expression[0] as Operateur;
+			Fonction Secondmember = expression[1] as Fonction;
 			return Firstmember.Execute (opponentScore, Secondmember.Execute(opponentScore));
 		}
 
