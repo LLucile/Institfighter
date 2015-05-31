@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour {
 	private Card[] expression = new Card[2];
 
 	// some useful variables
-	private Actions lastAction = null;
+	private Actions lastAction = Actions.None;
 
 	// Use this for initialization
 	void Start () {
