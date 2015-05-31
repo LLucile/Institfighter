@@ -193,7 +193,7 @@
 
 		float4 plot (float2 uv, float2 screenPos, float y, float absScoreResult)
 		{				
-			const float edge = absScoreResult / 20.;
+			const float edge = absScoreResult / 50.;
 			
 			if (isnan(y))
 				return float4(0., 0., 0., 0.);
