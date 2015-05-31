@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// expression browsing variables
 	private int expressionScroller = 0;
-	private Card[] expression = new Card[4];
+	private Card[] expression = new Card[5];
 
 	// some useful variables
 	private Actions lastAction = Actions.None;
@@ -73,17 +73,19 @@ public class PlayerScript : MonoBehaviour {
 				int waitingtime = 1*CountCard ();
 				Debug.Log ("waiting time = "+waitingtime);
 				ownCards.SetTime(waitingtime);
-				Debug.Log ("n cards =" + CountCard ());
+
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
+				expressionScroller = 0;
+				Debug.Log ("expressionScroller after Validate = " + expressionScroller);
 				if(tempScore != null){
 					opponentScore = (float) tempScore;
 					Debug.Log(opponentScore);
+					GameUI.Instance.SetHealth(playerNumber, opponentScore);
 				}
 				else{
 					// TODO forbidden mathematical operation feedback (0 points)
 				}
-				expressionScroller = 0;
 				expression[0] = null;
 				expression[1] = null;
 				expression[2] = null;
