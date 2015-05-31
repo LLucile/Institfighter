@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour {
 		tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
 			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
-			if(waitingTime <= 0 && tempx != lastAction && expressionScroller < 3){ // if the card is immediatly available
+			if(waitingTime <= 0 ){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
@@ -56,24 +56,20 @@ public class PlayerScript : MonoBehaviour {
 		}
 		if (tempx == Actions.Cancel) {
 			if(lastAction != Actions.None){
+				GameUI.Instance.SelectCard(playerNumber, (int)lastAction, false);
 				Debug.Log(expressionScroller);
 				expression[expressionScroller] = null;
-				ownCards.SetHandSlotTime(tempx, 0);
+				ownCards.SetHandSlotTime(lastAction,-1);
 				expressionScroller --;
-			}
-		}
-		if(tempx == Actions.Validate){
-			Debug.Log("test validate");
-			if(IsValidExpression()){
-				Debug.Log("IT IS VALID !");
 			}
 		}
 		if(tempx == Actions.Validate){
 			// TODO display that the expression is valid
 			if(IsValidExpression() ){
-				Debug.Log ("validate !");
+
+				Debug.Log ("IT IS VALID !");
 				int waitingtime = 1*CountCard ();
-				Debug.Log ("waiting : " + waitingtime);
+				Debug.Log ("waiting time = "+waitingtime);
 				ownCards.SetTime(waitingtime);
 				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
@@ -103,7 +99,22 @@ public class PlayerScript : MonoBehaviour {
 
 	float? ComputeOpponentScore(){
 		float? score = opponentScore;
-		if (expression [0] is Fonction) {
+		Fonction first = expression[0] as Fonction;
+		Operateur second = expression[1] as Operateur;
+		Fonction third = expression[2] as Fonction;
+		if(first != null && second != null && third != null){
+			float? firstResult = first.Execute(score);
+			float? thirdResult = third.Execute(score);
+			if(firstResult is float && thirdResult is float){
+				score = second.Execute(firstResult, thirdResult);
+			}
+		}
+		if(first != null && second == null && third == null)
+			score = first.Execute(score);
+		if(first == null && second != null && third != null)
+			score = second.Execute(score, third.Execute(score));
+		return score;
+		/*if (expression [0] is Fonction) {
 			Fonction Firstmember = expression[0] as Fonction;
 			Debug.Log ("Is first member fonction ?" + (Firstmember != null));
 			if(Firstmember.Function == Functions.b){
@@ -181,6 +192,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 		Debug.LogError ("WE WERE LIKE NEVER SUPPOSED TO GET THERE !");
 		return opponentScore;
+		*/
 	}
 	
 
@@ -243,58 +255,6 @@ public class PlayerScript : MonoBehaviour {
 		else {
 			return false;
 		}
-		/*
-		if (expressionScroller == 0) {
-			return false;
-		}
-		if (expression [0] != null) {
-			if (expression [0] is Fonction) {
-				Fonction expression0 = (Fonction) expression[0];
-				if (expression [1] == null) {
-					return true;
-				} 
-				else {
-					if (expression [1] is Operateur) {
-						if(expression[2] != null){
-							if(expression[2] is Fonction){
-								return true;
-							}
-							else{
-								return false;
-							}
-						}
-						else{
-							if(expression0.Function == Functions.b){
-								return true;
-							}
-							else{
-								return false;
-							}
-						}
-					} 
-					else {
-						return false;
-					}
-				}
-			} 
-			else {
-				if(expression[1] is Fonction){
-					Fonction expression1 = (Fonction) expression[1];
-					if(expression1.Function == Functions.b){
-						return true;
-					}
-					else{
-						return false;
-					}
-				}
-				else{
-					return false;
-				}
-			}
-		}
-		else {
-			return false;
-		}*/
 	}
 
 }

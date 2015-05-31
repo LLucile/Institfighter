@@ -12,6 +12,8 @@ public class GameUI : MonoBehaviour {
 	public RectTransform[] p1cards;
 	public RectTransform[] p2cards;
 
+	public CameraShake cameraShake;
+
 	public static GameUI Instance = null;
 	
 	void Awake() {
@@ -36,7 +38,7 @@ public class GameUI : MonoBehaviour {
 
 	public void SetHealth(int player, float amount){
 		playersScore[player].text = amount+"";
-		playersHealth[player].fillAmount = Mathf.Abs(amount);
+		playersHealth[player].fillAmount = Mathf.Abs(Mathf.Max(amount, GameManager.Instance.maxScore)/GameManager.Instance.maxScore);
 	}
 
 	public void CreateCard(int player, int number, Card card){
@@ -54,6 +56,12 @@ public class GameUI : MonoBehaviour {
 		instance.Setup (card);
 	}
 
+	public void RemoveCard (int player, int number){
+		UICard card = GetCard (player, number);
+		if (card != null)
+			Destroy (card.gameObject);
+	}
+
 	public void SelectCard(int player, int number, bool selected){
 		UICard card = GetCard (player, number);
 		if (selected) {
@@ -61,6 +69,10 @@ public class GameUI : MonoBehaviour {
 		} else {
 			card.Unselect();
 		}
+	}
+
+	public void Shake(float intensity){
+		cameraShake.ShakeCamera(intensity, 4f, new Vector3());
 	}
 
 	UICard GetCard(int player, int number){
