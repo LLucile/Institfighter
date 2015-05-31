@@ -4,11 +4,11 @@ using System.Collections;
 public class Hand : MonoBehaviour {
 
 	// attributes
-	Card CL = new Fonction();
-	Card CR = new Fonction();
-	Card CT = new Operateur();
-	Card CB = new Operateur();
-	int T = 0;
+	Card CL;
+	Card CR;
+	Card CT;
+	Card CB;
+	float T = 0;
 	// Use this for initialization
 	void Start () {
 		Card CL = GameManager.heap.PickFonction ();
@@ -24,7 +24,7 @@ public class Hand : MonoBehaviour {
 		T = T - Time.deltaTime;
 	}
 
-	public int GetHandSlotWaitingTime(Actions a){
+	public float GetHandSlotWaitingTime(Actions a){
 		return T;
 	}
 
@@ -38,6 +38,8 @@ public class Hand : MonoBehaviour {
 				return CB;
 			case Actions.Top:
 				return CT;
+			default:
+			return null;
 		}	
 	
 	}
@@ -47,17 +49,11 @@ public class Hand : MonoBehaviour {
 	}
 	
 
-	public Card GetNewCards(){
+	public void GetNewCards(){
 		if ((T < 10000) && (T > 0)) {
 			Card CL = GameManager.heap.PickFonction ();
-		}
-		if ((T < 10000) && (T > 0)) {
 			Card CR = GameManager.heap.PickFonction ();
-		}
-		if ((T < 10000) && (T > 0)) {
 			Card CT = GameManager.heap.PickOperateur ();
-		}
-		if ((T < 10000) && (T > 0)) {
 			Card CB = GameManager.heap.PickOperateur ();
 		}
 	}
