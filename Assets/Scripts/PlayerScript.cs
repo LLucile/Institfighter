@@ -25,17 +25,17 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("PlayerScript started");
-
+//		Debug.Log ("Cards : " + ownCards.CB.name + " " + ownCards.CT.name + " " + ownCards.CR.name + " " + ownCards.CL.name);
 	} 
 
 	void Update(){
 		// get the user input
 		Actions tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-			Debug.Log ("Got Action : "+ (int) tempx);
+			// Debug.Log ("Got Action : "+ (int) tempx);
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
-				Debug.Log ("Waiting time is zero");
+				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
@@ -47,6 +47,7 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if (tempx == Actions.Cancel) {
+			Debug.Log ("Received Cancel order");
 			expression[expressionScroller] = null;
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
@@ -77,6 +78,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		// check 
+		ownCards.HandUpdate ();
 		
 	}
 

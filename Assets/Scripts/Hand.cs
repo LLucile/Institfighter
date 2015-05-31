@@ -4,22 +4,14 @@ using System.Collections;
 public class Hand {
 
 	// attributes
-	Card CL;
-	Card CR;
-	Card CT;
-	Card CB;
+	public Card CL = GameManager.heap.PickFonction ();
+	public Card CR = GameManager.heap.PickFonction ();
+	public Card CT = GameManager.heap.PickFonction ();
+	public Card CB = GameManager.heap.PickFonction ();
 	float T = -1;
-	// Use this for initialization
-	void Start () {
-		CL = GameManager.heap.PickFonction ();
-		CR = GameManager.heap.PickFonction ();
-		CT = GameManager.heap.PickOperateur ();
-		CB = GameManager.heap.PickOperateur ();
-
-	}
 	
 	// Update is called once per frame
-	void Update () {
+	public void HandUpdate () {
 		//update timers
 		T = T - Time.deltaTime;
 	}

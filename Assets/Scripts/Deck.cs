@@ -12,6 +12,7 @@ public class Deck {
 	public Deck(){
 		List<Operateur> ope = new List<Operateur>();
 		List<Fonction> fun = new List<Fonction>();
+		Debug.Log ("Creating a deck of cards");
 	
 		// -------------------------------------------------------------
 		//     INITIALISATION DES CARTES
@@ -38,6 +39,8 @@ public class Deck {
 	    fun.Add(new Fonction(5 ,Functions.arctan       ,"arc-tangeante"));
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
+
+		Debug.Log ("Deck of cards has been created");
 	}
     // ---------------------------------------------------------------
     // METHODES
@@ -45,6 +48,7 @@ public class Deck {
 	        
     public Fonction PickFonction(){
 		int cumsum=0,r;
+//		Debug.Log ("First fun card is " + fun [0].Function);
 		Fonction O=fun[0];
 		// sort the cards
 		float sum = fun.Sum(P=>P.weight);
