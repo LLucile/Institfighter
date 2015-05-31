@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// expression browsing variables
 	private int expressionScroller = 0;
-	private Card[] expression = new Card[3];
+	private Card[] expression = new Card[4];
 
 	// some useful variables
 	private Actions lastAction = Actions.None;
@@ -45,13 +45,13 @@ public class PlayerScript : MonoBehaviour {
 				Debug.Log ("expressionScroller = " + expressionScroller);
 				Debug.Log ("last action is "+lastAction);
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
-				Debug.Log ("Card is "+ expression[expressionScroller].name);
+				Debug.Log ("Card is " + expression[expressionScroller].name);
 				expressionScroller ++;
 				ownCards.SetHandSlotTime(lastAction, Mathf.Infinity);
-				Debug.Log ("last action is "+lastAction);
+				Debug.Log ("last action is " + lastAction);
 			}
 			else{
-				Debug.Log ("Waiting time is not zero : " + waitingTime);
+				//Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
@@ -61,12 +61,12 @@ public class PlayerScript : MonoBehaviour {
 				expression[expressionScroller] = null;
 				ownCards.SetHandSlotTime(lastAction,-1);
 				expressionScroller --;
+				Debug.Log(expressionScroller);
 			}
 		}
 		if(tempx == Actions.Validate){
 			// TODO display that the expression is valid
 			if(IsValidExpression() ){
-
 				Debug.Log ("IT IS VALID !");
 				int waitingtime = 1*CountCard ();
 				Debug.Log ("waiting time = "+waitingtime);
@@ -85,13 +85,11 @@ public class PlayerScript : MonoBehaviour {
 				expression[0] = null;
 				expression[1] = null;
 				expression[2] = null;
-				ownCards.GetNewCards();
 			}
 		}
 		else{
 			//TODO display that it is not a valid expression
 		}
-
 		// check 
 		ownCards.HandUpdate ();
 		
