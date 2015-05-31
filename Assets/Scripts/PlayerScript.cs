@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour {
 	private Card[] expression = new Card[2];
 
 	// some useful variables
-	private int? lastAction = null;
+	private Actions lastAction = null;
 
 	// Use this for initialization
 	void Start () {
@@ -29,9 +29,9 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		// get the user input
-		int? tempx = GetAction ();
+		Actions tempx = GetAction ();
 
-		if (tempx < 4) { //if the user tried to select a card
+		if ( ((int?) tempx) < 4) { //if the user tried to select a card
 			int waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				// add IT to the expression and set it as unavailable in the hand
