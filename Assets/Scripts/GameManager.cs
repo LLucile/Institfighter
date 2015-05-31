@@ -9,6 +9,12 @@ public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
 	public static Deck heap;
+<<<<<<< HEAD
+=======
+	void Start () {
+		heap = new Deck();
+	}
+>>>>>>> origin/master
 	protected GameManager() {}
 	private static GameManager instance = null;
 	public event OnStateChangeHandler OnStateChange;
