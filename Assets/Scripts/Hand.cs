@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Hand : MonoBehaviour {
+public class Hand {
 
 	// attributes
 	Card CL;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-public class Deck : MonoBehaviour {
+public class Deck {
 	
 	public List<Operateur> ope;
 	public List<Fonction> fun;
