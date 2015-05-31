@@ -33,6 +33,7 @@ public class PlayerScript : MonoBehaviour {
 		Actions tempx = GetAction ();
 
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
+			Debug.Log ((int) tempx);
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				// add IT to the expression and set it as unavailable in the hand
@@ -43,6 +44,7 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if (tempx == Actions.Cancel) {
+			Debug.Log ("Cancel !");
 			expression[expressionScroller] = null;
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
@@ -50,6 +52,7 @@ public class PlayerScript : MonoBehaviour {
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx == Actions.Validate){
+				Debug.Log ("validate !");
 				ownCards.SetHandSlotTime(5*CountCard ());
 
 				//check that the calculus is mathematically ok

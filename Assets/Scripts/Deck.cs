@@ -44,6 +44,7 @@ public class Deck {
     // ---------------------------------------------------------------
 	        
     public Fonction PickFonction(){
+		Debug.Log("bou");
 		int cumsum=0,r;
 		Fonction O=fun[0];
 		// sort the cards

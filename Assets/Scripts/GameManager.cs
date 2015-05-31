@@ -8,7 +8,10 @@ public enum GameState { INTRO, MAIN, MINIGAME }
 public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
-	public static Deck heap = new Deck();
+	public static Deck heap;
+	void Start () {
+		heap = new Deck();
+	}
 	protected GameManager() {}
 	private static GameManager instance = null;
 	public event OnStateChangeHandler OnStateChange;
