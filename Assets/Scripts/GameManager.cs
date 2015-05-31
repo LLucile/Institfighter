@@ -8,26 +8,26 @@ public enum GameState { INTRO, MAIN, MINIGAME }
 public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
-	public static Deck heap;
+	public Deck heap;
 	protected GameManager() {}
-	private static GameManager instance = null;
+	public static GameManager Instance = null;
 	public event OnStateChangeHandler OnStateChange;
 	public  GameState gameState { get; private set; }
 
-	void Start() {
+	void Awake() {
+		Debug.Log ("Game Manager started");
 		heap = new Deck();
-	}
-	
-	public static GameManager Instance{
-		get {
-			if (GameManager.instance == null){
-				DontDestroyOnLoad(GameManager.instance);
-				GameManager.instance = new GameManager();
-			}
-			return GameManager.instance;
+		//Debug.Log (
+		Debug.Log ("is heap.fun empty ? " + (heap.ope == null));
+		if (GameManager.Instance == null){
+			Instance = this;
 		}
-		
+		else if (Instance != this){
+			Destroy (gameObject);
+		}
+		DontDestroyOnLoad(GameManager.Instance);
 	}
+
 	
 	public void SetGameState(GameState state){
 		this.gameState = state;
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void OnApplicationQuit(){
-		GameManager.instance = null;
+		GameManager.Instance = null;
 	}
 	
 }
