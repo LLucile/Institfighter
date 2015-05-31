@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour {
 	public string sButtonCancel = "Back";
 
 	//oponnent score
-	public float opponentScore = 10;
+	public float? opponentScore = 10;
 
 	// hand
 	public Hand ownCards = new Hand();
@@ -20,7 +20,7 @@ public class PlayerScript : MonoBehaviour {
 	private Card[] expression = new Card[2];
 
 	// some useful variables
-	private int lastAction = null;
+	private int? lastAction = null;
 
 	// Use this for initialization
 	void Start () {
@@ -29,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		// get the user input
-		int tempx = GetAction ();
+		int? tempx = GetAction ();
 
 		if (tempx < 4) { //if the user tried to select a card
 			int waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
@@ -74,23 +74,23 @@ public class PlayerScript : MonoBehaviour {
 		
 	}
 
-	private float ComputeOpponentScore(){
+	private float? ComputeOpponentScore(){
 		if ( (expression [0] != null) && (expression [0] is Function) ) {
-			int score0 = expression [0].Execute (opponentScore);
+			float? score0 = expression [0].Execute (opponentScore);
 			if (score0 == null) {
 				return opponentScore;
 			}
 		}
 		if (expression [1] != null) {
 			if(expression[1] is Function){
-				int score3 = expression[0].Execute (opponentScore, expression[1].Execute (0));
+				float? score3 = expression[0].Execute (opponentScore, expression[1].Execute (0));
 			}
 			else{
-				int score2 = expression [2].Execute (opponentScore);
+				float? score2 = expression [2].Execute (opponentScore);
 				if (score0 == null) {
 					return opponentScore;
 				}
-				int score3 = expression [1].Execute (score0, score2);
+				float? score3 = expression [1].Execute (score0, score2);
 				if (score0 == null) {
 					return opponentScore;
 				}

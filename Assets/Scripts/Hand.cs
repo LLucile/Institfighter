@@ -4,10 +4,10 @@ using System.Collections;
 public class Hand : MonoBehaviour {
 
 	// attributes
-	Card CL = new Card();
-	Card CR = new Card();
-	Card CT = new Card();
-	Card CB = new Card();
+	Card CL = new Fonction();
+	Card CR = new Fonction();
+	Card CT = new Operateur();
+	Card CB = new Operateur();
 	int T = 0;
 	// Use this for initialization
 	void Start () {
@@ -45,16 +45,16 @@ public class Hand : MonoBehaviour {
 
 	public Card GetNewCards(){
 		if ((TL < 10000) && (TL > 0)) {
-			// get new card
+			// TODO get new card
 		}
 		if ((TL < 10000) && (TL > 0)) {
-			// get new card
+			// TODO get new card
 		}
 		if ((TL < 10000) && (TL > 0)) {
-			// get new card
+			// TODO get new card
 		}
 		if ((TL < 10000) && (TL > 0)) {
-			// get new card
+			// TODO get new card
 		}
 	}
 
