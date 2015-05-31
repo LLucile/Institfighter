@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83de5097153737d41be18df59a01db82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 0
   sButton1: Horizontal
   sButton2: Vertical
   sButtonValidate: Ok
@@ -141,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83de5097153737d41be18df59a01db82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 1
   sButton1: Horizontal2
   sButton2: Vertical2
   sButtonValidate: Ok2
@@ -157,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c52c642836d134c8da9d02b36067b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxScore: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

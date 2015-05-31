@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerScript : MonoBehaviour {
 	// Attributes
+	public int playerNumber;
 	// controls
 	public string sButton1 = "Horizontal";
 	public string sButton2 = "Vertical";
@@ -25,7 +26,7 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("PlayerScript started");
-		ownCards = new Hand();
+		ownCards = new Hand(playerNumber);
 		//Debug.Log ("Cards : " + ownCards.CB.name + " " + ownCards.CT.name + " " + ownCards.CR.name + " " + ownCards.CL.name);
 		Debug.Log ("Start successfull");
 	} 
@@ -35,7 +36,6 @@ public class PlayerScript : MonoBehaviour {
 		//Debug.Log ("w i");
 		Actions tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-			Debug.Log ("Card Selection : " + tempx);
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");

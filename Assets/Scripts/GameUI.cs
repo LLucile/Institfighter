@@ -12,6 +12,18 @@ public class GameUI : MonoBehaviour {
 	public RectTransform[] p1cards;
 	public RectTransform[] p2cards;
 
+	public static GameUI Instance = null;
+	
+	void Awake() {
+		if (GameUI.Instance == null){
+			Instance = this;
+		}
+		else if (Instance != this){
+			Destroy (gameObject);
+		}
+		DontDestroyOnLoad(GameUI.Instance);
+	}
+
 	// Use this for initialization
 	void Start () {
 

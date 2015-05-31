@@ -24,6 +24,9 @@ public class UICard : MonoBehaviour {
 
 	public void Setup(Card card){
 		Unselect ();
+		if (card is Operateur) {
+			functionName.fontSize = 72;
+		}
 		functionName.text = card.name;
 		gameObject.SetActive (true);
 	}
