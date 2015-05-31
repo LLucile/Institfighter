@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// some useful variables
 	private Actions lastAction = Actions.None;
+	private Actions tempx;
 
 	// Use this for initialization
 	void Start () {
@@ -33,34 +34,43 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		// get the user input
-		//Debug.Log ("w i");
-		Actions tempx = GetAction ();
+		// Debug.Log ("w i");
+		tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
+				Debug.Log ("expressionScroller = " + expressionScroller);
+				Debug.Log ("last action is "+lastAction);
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
 				Debug.Log ("Card is "+ expression[expressionScroller].name);
 				expressionScroller ++;
-				ownCards.SetHandSlotTime(Mathf.Infinity);
+				ownCards.SetHandSlotTime(lastAction, Mathf.Infinity);
+				Debug.Log ("last action is "+lastAction);
 			}
 			else{
 				//Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
-
-			expression[expressionScroller] = null;
-			ownCards.SetHandSlotTime(0);
-			expressionScroller --;
+			Debug.Log ("Received cancel !");
+			if(lastAction != Actions.None){
+				expression[expressionScroller] = null;
+				Debug.Log ("Last Action was "+lastAction);
+				ownCards.SetHandSlotTime(lastAction, -1);
+				expressionScroller --;
+			}
+			else{
+				Debug.Log ("No action to cancel !");
+			}
 		}
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx == Actions.Validate){
 				Debug.Log ("validate !");
-				ownCards.SetHandSlotTime(5*CountCard ());
+				ownCards.SetTime(5*CountCard ());
 				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
