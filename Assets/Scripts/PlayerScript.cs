@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// expression browsing variables
 	private int expressionScroller = 0;
-	private Card[] expression = new Card[3];
+	private Card[] expression = new Card[4];
 
 	// some useful variables
 	private Actions lastAction = Actions.None;
@@ -39,38 +39,40 @@ public class PlayerScript : MonoBehaviour {
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
 			Debug.Log (tempx);
 			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
-			if(waitingTime <= 0){ //&& tempx != lastAction && expressionScroller < 3){ // if the card is immediatly available
+			if(waitingTime <= 0 ){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
 				Debug.Log ("expressionScroller = " + expressionScroller);
 				Debug.Log ("last action is "+lastAction);
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
-				Debug.Log ("Card is "+ expression[expressionScroller].name);
+				Debug.Log ("Card is " + expression[expressionScroller].name);
 				expressionScroller ++;
 				ownCards.SetHandSlotTime(lastAction, Mathf.Infinity);
-				Debug.Log ("last action is "+lastAction);
+				Debug.Log ("last action is " + lastAction);
+			}
+			else{
+				//Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
-		if (tempx == Actions.Cancel && expressionScroller > 0) {
-			Debug.Log(expressionScroller);
-			expression[expressionScroller-1] = null;
-			ownCards.SetHandSlotTime(tempx,0);
-			expressionScroller --;
-			//if(lastAction != Actions.None){
-			//	Debug.Log(expressionScroller);
-			//	expression[expressionScroller] = null;
-			//	ownCards.SetHandSlotTime(tempx, 0);
-			//	expressionScroller --;
-			//}
+		if (tempx == Actions.Cancel) {
+			if(lastAction != Actions.None){
+				GameUI.Instance.SelectCard(playerNumber, (int)lastAction, false);
+				Debug.Log(expressionScroller);
+				expression[expressionScroller] = null;
+				ownCards.SetHandSlotTime(lastAction,-1);
+				expressionScroller --;
+				Debug.Log(expressionScroller);
+			}
 		}
 		if(tempx == Actions.Validate){
 			Debug.Log ("validate");
 			// TODO display that the expression is valid
 			if(IsValidExpression() ){
-
 				Debug.Log ("IT IS VALID !");
-				ownCards.SetTime(5*CountCard ());
+				int waitingtime = 1*CountCard ();
+				Debug.Log ("waiting time = "+waitingtime);
+				ownCards.SetTime(waitingtime);
 				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
@@ -85,13 +87,11 @@ public class PlayerScript : MonoBehaviour {
 				expression[0] = null;
 				expression[1] = null;
 				expression[2] = null;
-				ownCards.GetNewCards();
 			}
 		}
 		else{
 			//TODO display that it is not a valid expression
 		}
-
 		// check 
 		ownCards.HandUpdate ();
 		

@@ -12,7 +12,10 @@
 		_Operator ("Operator", Range(0, 3)) = 0
 		_ValA ("ValA", Float) = 1.0
 		_ValB ("ValB", Float) = 1.0
-		_Score ("Score", Float) = 0.0		
+		_Score ("Score", Float) = 0.0
+		_FuncInterpolA ("FuncInterpolA", Range(0, 1)) = 1
+		_FuncInterpolB ("FuncInterpolB", Range(0, 1)) = 1
+		_FuncInterpolResult ("FuncInterpolResult", Range(0, 1)) = 1
 	}
 	SubShader {
 		Tags { "RenderType" = "Transparent" }
@@ -44,6 +47,9 @@
 		float _ValA;
 		float _ValB;
 		float _Score;
+		float _FuncInterpolA;
+		float _FuncInterpolB;
+		float _FuncInterpolResult;
 		
 		float Hash (float2 p)
 		{
@@ -53,7 +59,7 @@
 
 		float noise (float2 p)
 		{
-			p *= 200.;
+			p *= 800.;
 		    float2 i = floor(p);
 		    float2 f = frac(p);
 		    f *= f * (3.0 - 2.0 * f);
@@ -170,13 +176,15 @@
 
 		    if ((nuv.x >= -markEdge) && (nuv.x <= markEdge))
 		    {
-		    	float v = noise(screenPos) + 1.;
+		    	float n = noise(screenPos);
+		    	float v = n > .3 ? n + 1.: 0.;
 		        c += float4(v, v, v, v);
 		    }
 
 		    if (nuv.y > -markEdge && nuv.y < markEdge)
 		    {
-		    	float v = noise(screenPos) + 1.;
+		    	float n = noise(screenPos);
+		    	float v = n > .3 ? n + 1.: 0.;
 		        c += float4(v, v, v, v);
 		    }
 
@@ -184,20 +192,21 @@
 		}
 
 		float4 plot (float2 uv, float2 screenPos, float y, float absScoreResult)
-		{
-			const float edge = 0.025 * absScoreResult;
+		{				
+			const float edge = absScoreResult / 50.;
 			
 			if (isnan(y))
 				return float4(0., 0., 0., 0.);
 		
-		    float dist = abs(uv.y - y);
+		    float ydist = abs(uv.y - y);
 			
-			if (isnan(dist))
+			if (isnan(ydist))
 				return float4(0., 0., 0., 0.);
 
-		    if (dist < edge)
+		    if (ydist < edge)
 		    {
-		    	float v = noise(screenPos) + 1.;
+		    	float n = noise(screenPos);
+		    	float v = n > .3 ? n + 1.: 0.;
 		        return float4(v, v, v, v);
 		    }
 
@@ -223,10 +232,13 @@
 
 			// Albedo comes from a texture tinted by color
 			fixed4 c = drawMark(nuv, IN.screenPos.xy) * _Color;
-			c += plot(uv, IN.screenPos.xy, vA, absScoreResult) * _FnAColor;
-			c += plot(uv, IN.screenPos.xy, vB, absScoreResult) * _FnBColor;
-			c += plot(uv, IN.screenPos.xy, vR, absScoreResult);
-			
+			if (IN.uv_MainTex.x <= _FuncInterpolA)
+				c += plot(uv, IN.screenPos.xy, vA, absScoreResult) * _FnAColor;
+			if (IN.uv_MainTex.x <= _FuncInterpolB)
+				c += plot(uv, IN.screenPos.xy, vB, absScoreResult) * _FnBColor;
+			if (IN.uv_MainTex.x <= _FuncInterpolResult)
+				c += plot(uv, IN.screenPos.xy, vR, absScoreResult);
+
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
 			o.Metallic = _Metallic;

@@ -35,6 +35,9 @@ public class Hand {
 		TR = TR - Time.deltaTime;
 		TB = TB - Time.deltaTime;
 		TT = TT - Time.deltaTime;
+
+		//update cards if necessary
+		GetNewCards();
 	}
 
 	public float? GetHandSlotWaitingTime(Actions a){
@@ -94,30 +97,34 @@ public class Hand {
 	public void SetTime(float time){
 		if (TB > 10000) {
 			TB = time;
+			GameUI.Instance.RemoveCard (playerNumber, (int) Position.Bottom);
 		}
 		if (TL > 10000) {
 			TL = time;
+			GameUI.Instance.RemoveCard (playerNumber, (int) Position.Left);
 		}
 		if (TR > 10000) {
 			TR = time;
+			GameUI.Instance.RemoveCard (playerNumber, (int) Position.Right);
 		}
 		if (TT > 10000) {
 			TT = time;
+			GameUI.Instance.RemoveCard (playerNumber, (int) Position.Top);
 		}
 	}
 	
 
 	public void GetNewCards(){
-		if ((TL < 10000) && (TL > 0)) {
+		if ((TL < 0.5) && (TL > 0)) {
 			CL = TakeCard (Position.Left, Types.Function);
 		}
-		if ((TR < 10000) && (TR > 0)) {
+		if ((TR < 0.5) && (TR > 0)) {
 			CR = TakeCard (Position.Right, Types.Function);
 		}
-		if ((TT < 10000) && (TT > 0)) {
+		if ((TT < 0.5) && (TT > 0)) {
 			CT = TakeCard (Position.Top, Types.Operator);
 		}
-		if ((TB < 10000) && (TB > 0)) {
+		if ((TB < 0.5) && (TB > 0)) {
 			CB = TakeCard(Position.Bottom, Types.Operator);
 		}
 	}
