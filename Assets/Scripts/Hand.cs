@@ -14,6 +14,8 @@ public class Hand {
 	float TB = -1;
 	float TT = -1;
 
+	public bool getCard = false;
+
 	public Hand(int player){
 		playerNumber = player;
 
@@ -37,6 +39,7 @@ public class Hand {
 		TT = TT - Time.deltaTime;
 
 		//update cards if necessary
+
 		GetNewCards();
 	}
 
@@ -115,17 +118,28 @@ public class Hand {
 	
 
 	public void GetNewCards(){
-		if ((TL < 0.5) && (TL > 0)) {
-			CL = TakeCard (Position.Left, Types.Function);
-		}
-		if ((TR < 0.5) && (TR > 0)) {
-			CR = TakeCard (Position.Right, Types.Function);
-		}
-		if ((TT < 0.5) && (TT > 0)) {
-			CT = TakeCard (Position.Top, Types.Operator);
-		}
-		if ((TB < 0.5) && (TB > 0)) {
-			CB = TakeCard(Position.Bottom, Types.Operator);
+		if (getCard == true) {
+			if ((TL < 0.5) && (TL > 0)) {
+				Debug.Log ("get new card");
+				CL = TakeCard (Position.Left, Types.Function);
+				getCard = false;
+			}
+			if ((TR < 0.5) && (TR > 0)) {
+				Debug.Log ("get new card");
+				CR = TakeCard (Position.Right, Types.Function);
+				getCard = false;
+			}
+			if ((TT < 0.5) && (TT > 0)) {
+				Debug.Log ("get new card");
+				CT = TakeCard (Position.Top, Types.Operator);
+				getCard = false;
+			}
+			if ((TB < 0.5) && (TB > 0)) {
+				Debug.Log ("get new card");
+				CB = TakeCard (Position.Bottom, Types.Operator);
+				getCard = false;
+			}
+
 		}
 	}
 

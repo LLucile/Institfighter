@@ -89,6 +89,7 @@ public class PlayerScript : MonoBehaviour {
 				expression[0] = null;
 				expression[1] = null;
 				expression[2] = null;
+				ownCards.getCard = true;
 			}
 		}
 		else{
