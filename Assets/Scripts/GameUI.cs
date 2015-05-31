@@ -6,6 +6,11 @@ public class GameUI : MonoBehaviour {
 
 	public GameObject[] PlayerUI;
 	public Image[] playersHealth;
+	public Text[] playersScore;
+	public UICard[] templates;
+
+	public RectTransform[] p1cards;
+	public RectTransform[] p2cards;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +22,43 @@ public class GameUI : MonoBehaviour {
 	
 	}
 
-	void SetHealth(int player, float amount){
+	public void SetHealth(int player, float amount){
+		playersScore[player].text = amount+"";
 		playersHealth[player].fillAmount = Mathf.Abs(amount);
 	}
+
+	public void CreateCard(int player, int number, Card card){
+
+		RectTransform parent;
+		if (player == 1) {
+			parent = p2cards [number];
+		} else {
+			parent = p1cards [number];
+		}
+
+		UICard instance = Instantiate (templates [player]).GetComponent<UICard>();
+		instance.transform.SetParent (parent, false);
+
+		instance.Setup (card);
+	}
+
+	public void SelectCard(int player, int number, bool selected){
+		UICard card = GetCard (player, number);
+		if (selected) {
+			card.Select();
+		} else {
+			card.Unselect();
+		}
+	}
+
+	UICard GetCard(int player, int number){
+		RectTransform parent;
+		if (player == 1) {
+			parent = p2cards [number];
+		} else {
+			parent = p1cards [number];
+		}
+		
+		return parent.GetComponentInChildren<UICard> ();
+	} 
 }
