@@ -88,33 +88,87 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	float? ComputeOpponentScore(){
-		float? score0 = null;
-		float? score1 = null;
-		float? score2 = null;
+		float? score = opponentScore;
 		if (expression [0] is Fonction) {
-			Fonction Firstmember = expression [0] as Fonction;
-			score0 = Firstmember.Execute(opponentScore);
+			Fonction Firstmember = expression[0] as Fonction;
+			Debug.Log ("Is first member fonction ?" + (Firstmember != null));
 			if(Firstmember.Function == Functions.b){
-				Operateur Secondmember = expression[1] as Operateur;
-				Debug.Log ("Is Second member operator null ?" + (Secondmember != null));
-				Debug.Log("Functions are " + Firstmember.name + " "+ Secondmember.name);
-				return Secondmember.Execute(opponentScore, Firstmember.Execute(opponentScore));
+				if(expression[1] is Operateur){
+					Operateur Secondmember = expression[1] as Operateur;
+					Debug.Log ("Is second member operateur ?" + (Secondmember != null));
+					if(expression[2] == null){
+						score = Secondmember.Execute (Firstmember.Execute(opponentScore), opponentScore);
+						Debug.Log ("New Score = "+score);
+						return score;
+					} else{
+						//not valid expression
+						Debug.Log ("Not valid expression Function.b + Operateur + whatever");
+						return opponentScore;
+					}
+				} else{
+					//not valid expression
+					Debug.Log ("Not valid expression Function.b + Fonction");
+					return opponentScore;
+				}
+			} else{
+				if(expression[1] is Operateur){
+					Operateur Secondmember = expression[1] as Operateur;
+					Debug.Log ("Is second member operateur ?" + (Secondmember != null));
+					if(expression[2] is Fonction){
+						Fonction Thirdmember = expression[2] as Fonction;
+						Debug.Log ("Is third member fonction ?" + (Thirdmember != null));
+						score = Secondmember.Execute(Firstmember.Execute(opponentScore), Thirdmember.Execute(opponentScore));
+						Debug.Log ("New score = " + score);
+						return score;
+					}
+					else{
+						// this expression is not Function Operator Function type do not chance opponent score
+						Debug.Log ("Wrong expression Fonction + Operateur + Operateur");
+						return opponentScore;
+					}
+				}
+				else{
+					Debug.Log ("Wrong expression Fonction + Fonction + whatever");
+					return opponentScore;
+					//this expression is not Function Operator Function do not change score
+				}
+			}
+		}
+		else if (expression [0] is Operateur) {
+			Operateur Firstmember = expression[0] as Operateur;
+			Debug.Log ("Is first member operateur ?" + (Firstmember != null));
+			if(expression[1] is Fonction){
+				Fonction Secondmember = expression[1] as Fonction;
+				Debug.Log ("Is second member fonction ?" + (Secondmember != null));
+				if(Secondmember.Function == Functions.b){
+					if(expression[2] == null){
+						score = Firstmember.Execute (opponentScore, Secondmember.Execute(opponentScore));
+						Debug.Log ("New score is "+ score);
+					}
+					else{
+						//not valid expression
+						Debug.Log ("Wrong expression Operateur + Fonction.b + whatever");
+						return opponentScore;
+					}
+				}
+				else{
+					Debug.Log ("Wrong expression Operateur + whatever not Function.b");
+					return opponentScore;
+				}
 			}
 			else{
-				Debug.Log("Functions are " + Firstmember.name + " "+ Secondmember.name+ " "+ Thirdmember.name);
-				score0 = Firstmember.Execute(opponentScore);
-				score2 = Thirdmember.Execute(opponentScore);
-				score1 = Secondmember.Execute(score0, score2);
-				return score1;
+				Debug.Log ("Wrong expression Operateur + whatever not even Function");
+				return opponentScore;
 			}
 		}
-		else {
-			Operateur Firstmember = expression[0] as Operateur;
-			Fonction Secondmember = expression[1] as Fonction;
-			return Firstmember.Execute (opponentScore, Secondmember.Execute(opponentScore));
+		else{
+			Debug.Log ("Holy Crap ! Unidentified Flying Object !");
+			return opponentScore;
 		}
-
+		Debug.LogError ("WE WERE LIKE NEVER SUPPOSED TO GET THERE !");
+		return opponentScore;
 	}
+	
 
 	Actions GetAction(){
 		float h = Input.GetAxis (sButton1);
