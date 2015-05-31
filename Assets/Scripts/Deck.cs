@@ -10,8 +10,8 @@ public class Deck {
 	public List<Fonction> fun;
 
 	public Deck(){
-		List<Operateur> ope = new List<Operateur>();
-		List<Fonction> fun = new List<Fonction>();
+		ope = new List<Operateur>();
+		fun = new List<Fonction>();
 		Debug.Log ("Creating a deck of cards");
 	
 		// -------------------------------------------------------------
@@ -40,6 +40,7 @@ public class Deck {
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
 
+		Debug.Log ("is fun empty ? " + (this.fun[0] == null));
 		Debug.Log ("Deck of cards has been created");
 	}
     // ---------------------------------------------------------------
@@ -48,8 +49,10 @@ public class Deck {
 	        
     public Fonction PickFonction(){
 		Debug.Log("bou");
+		//int cumsum=0,r;
+		Debug.Log ("is fun empty ? " + (fun == null));
+		Debug.Log ("First fun card is " + fun [0].Function);
 		int cumsum=0,r;
-//		Debug.Log ("First fun card is " + fun [0].Function);
 		Fonction O=fun[0];
 		// sort the cards
 		float sum = fun.Sum(P=>P.weight);
@@ -63,10 +66,11 @@ public class Deck {
 				break;
 			}
 		}
-		Debug.Log ("coucou je suis sorti");
+		Debug.Log ("coucou je suis sorti de PickFonction()");
 		return O;
 	}
 	public Operateur PickOperateur(){
+		Debug.Log("bou");
 		int cumsum=0,r;
 		Operateur O=ope[0];
 		// sort the cards
@@ -81,6 +85,7 @@ public class Deck {
 				break;
 			}
 		}
+		Debug.Log ("Coucou je sors de PickOperator");
 		return O;
 	}
 	

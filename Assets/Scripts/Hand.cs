@@ -12,10 +12,10 @@ public class Hand {
 
 	public Hand(){
 		Debug.Log ("Successfully called Hand");
-		CL = GameManager.heap.PickFonction ();
-		CR = GameManager.heap.PickFonction ();
-		CT = GameManager.heap.PickFonction ();
-		CB = GameManager.heap.PickFonction ();
+		CL = GameManager.Instance.heap.PickFonction ();
+		CR = GameManager.Instance.heap.PickFonction ();
+		CT = GameManager.Instance.heap.PickFonction ();
+		CB = GameManager.Instance.heap.PickFonction ();
 		T = -1;
 		Debug.Log ("Successfully instanciated an hand");
 	}
@@ -52,10 +52,10 @@ public class Hand {
 
 	public void GetNewCards(){
 		if ((T < 10000) && (T > 0)) {
-			CL = GameManager.heap.PickFonction ();
-			CR = GameManager.heap.PickFonction ();
-			CT = GameManager.heap.PickOperateur ();
-			CB = GameManager.heap.PickOperateur ();
+			CL = GameManager.Instance.heap.PickFonction ();
+			CR = GameManager.Instance.heap.PickFonction ();
+			CT = GameManager.Instance.heap.PickOperateur ();
+			CB = GameManager.Instance.heap.PickOperateur ();
 		}
 	}
 

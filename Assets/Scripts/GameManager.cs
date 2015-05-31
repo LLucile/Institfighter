@@ -8,7 +8,7 @@ public enum GameState { INTRO, MAIN, MINIGAME }
 public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
-	public static Deck heap;
+	public Deck heap;
 	protected GameManager() {}
 	private static GameManager instance = null;
 	public event OnStateChangeHandler OnStateChange;
@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour {
 	void Awake() {
 		Debug.Log ("Game Manager started");
 		heap = new Deck();
+		//Debug.Log (
+		Debug.Log ("is heap.fun empty ? " + (heap.fun == null));
 	}
 	
 	public static GameManager Instance{
