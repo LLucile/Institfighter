@@ -66,6 +66,7 @@ public class PlayerScript : MonoBehaviour {
 				Debug.Log ("No action to cancel !");
 			}
 		}
+
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx == Actions.Validate){
@@ -220,6 +221,23 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	bool IsValidExpression(){
+		if(expression[0] is Fonction && expression[1] is Operateur && expression[2] is Fonction){
+			return true;
+		} else if(expression[0] is Fonction && expression[1]==null && expression[2]==null) {
+			return true;
+		} else if(expression[0]==null && expression[1] is Operateur && expression[2] is Fonction) {
+			Fonction expression2 = expression [0] as Fonction;
+			if(expression2.Function==Functions.b){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+		/*
 		if (expressionScroller == 0) {
 			return false;
 		}
@@ -270,7 +288,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 		else {
 			return false;
-		}
+		}*/
 	}
 
 }
