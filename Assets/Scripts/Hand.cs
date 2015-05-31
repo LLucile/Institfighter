@@ -32,6 +32,9 @@ public class Hand {
 	public void HandUpdate () {
 		//update timers
 		TL = TL - Time.deltaTime;
+		TR = TR - Time.deltaTime;
+		TB = TB - Time.deltaTime;
+		TT = TT - Time.deltaTime;
 	}
 
 	public float? GetHandSlotWaitingTime(Actions a){

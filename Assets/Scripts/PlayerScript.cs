@@ -51,14 +51,16 @@ public class PlayerScript : MonoBehaviour {
 				Debug.Log ("last action is "+lastAction);
 			}
 			else{
-				//Debug.Log ("Waiting time is not zero : " + waitingTime);
+				Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
-			Debug.Log(expressionScroller);
-			expression[expressionScroller-1] = null;
-			ownCards.SetHandSlotTime(0);
-			expressionScroller --;
+			if(lastAction != Actions.None){
+				Debug.Log(expressionScroller);
+				expression[expressionScroller] = null;
+				ownCards.SetHandSlotTime(tempx, 0);
+				expressionScroller --;
+			}
 		}
 		if(tempx == Actions.Validate){
 			Debug.Log("test validate");
@@ -70,7 +72,9 @@ public class PlayerScript : MonoBehaviour {
 			// TODO display that the expression is valid
 			if(IsValidExpression() ){
 				Debug.Log ("validate !");
-				ownCards.SetTime(5*CountCard ());
+				int waitingtime = 1*CountCard ();
+				Debug.Log ("waiting : " + waitingtime);
+				ownCards.SetTime(waitingtime);
 				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
