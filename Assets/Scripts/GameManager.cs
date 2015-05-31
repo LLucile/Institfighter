@@ -7,7 +7,7 @@ public enum GameState { INTRO, MAIN, MINIGAME }
 
 public delegate void OnStateChangeHandler();
 
-public class GameManager {
+public class GameManager : MonoBehaviour {
 	public static Deck heap = new Deck();
 	protected GameManager() {}
 	private static GameManager instance = null;

@@ -31,7 +31,7 @@ public class Fonction : Card {
 	//public Texture2D getGraph(){
 		//lier avec fonctions shaders
 	//}
-	public override float? Execute(float? score, float? score2){
+	public float? Execute(float? score){
 		float? res = null;
 		switch(Function)
 		{

@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour {
 	public float opponentScore = 10;
 
 	// hand
-	public Hand ownCards = new Hand();
+	private Hand ownCards = new Hand();
 
 	// expression browsing variables
 	private int expressionScroller = 0;
@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Debug.Log ("PlayerScript started");
 
 	} 
 
@@ -55,6 +56,7 @@ public class PlayerScript : MonoBehaviour {
 				float? tempScore = ComputeOpponentScore ();
 				if(tempScore != null){
 					opponentScore = (float) tempScore;
+					Debug.Log(opponentScore);
 				}
 				else{
 					// TODO forbidden mathematical operation feedback (0 points)

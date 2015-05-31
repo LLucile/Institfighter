@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-public class Deck : MonoBehaviour {
+public class Deck {
 	
 	public List<Operateur> ope;
 	public List<Fonction> fun;
@@ -38,8 +38,6 @@ public class Deck : MonoBehaviour {
 	    fun.Add(new Fonction(5 ,Functions.arctan       ,"arc-tangeante"));
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
-        Fonction p = this.PickFonction();
-        Console.WriteLine(p.weight);
 	}
     // ---------------------------------------------------------------
     // METHODES
