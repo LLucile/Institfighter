@@ -45,7 +45,7 @@ public class Hand {
 		case Actions.Top:
 			return TT;
 		default:
-			return Mathf.NegativeInfinity;
+			return null;
 		}	
 
 	}
@@ -58,21 +58,34 @@ public class Hand {
 
 		switch (a) {
 			case Actions.Left:
-				TL = Mathf.Infinity;
 				return CL;
 			case Actions.Right:
-				TR = Mathf.Infinity;
 				return CR;
 			case Actions.Bottom:
-				TB = Mathf.Infinity;
 				return CB;
 			case Actions.Top:
-				TT = Mathf.Infinity;
 				return CT;
 			default:
 				return null;
 		}	
 	
+	}
+
+	public void SetHandSlotTime(Actions a, float time){
+		switch (a) {
+		case Actions.Left:
+			TL = time;
+			break;
+		case Actions.Right:
+			TR = time;
+			break;
+		case Actions.Bottom:
+			TB = time;
+			break;
+		case Actions.Top:
+			TT = time;
+			break;
+		}		
 	}
 
 	public void SetTime(float time){
@@ -88,24 +101,6 @@ public class Hand {
 		if (TT > 10000) {
 			TT = time;
 		}
-	}
-
-	public void SetHandSlotTime(Actions a, float time){
-		switch (a) {
-			case Actions.Left:
-				TL = time;
-				break;
-			case Actions.Right:
-				TR = time;
-				break;
-			case Actions.Bottom:
-				TB = time;
-				break;
-			case Actions.Top:
-				TT = time;
-				break;
-		}	
-		
 	}
 	
 
@@ -128,10 +123,8 @@ public class Hand {
 		Card picked;
 		if (op == Types.Function) {
 			picked = GameManager.Instance.heap.PickFonction ();
-			Debug.Log ("Took card : " + picked.name);
 		} else {
 			picked = GameManager.Instance.heap.PickOperateur ();
-			Debug.Log ("Took card : " + picked.name);
 		}
 
 		GameUI.Instance.CreateCard(playerNumber, (int)cardNumber, picked);
