@@ -37,6 +37,7 @@ public class PlayerScript : MonoBehaviour {
 		// Debug.Log ("w i");
 		tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
+			Debug.Log (tempx);
 			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0 ){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
@@ -65,6 +66,7 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if(tempx == Actions.Validate){
+			Debug.Log ("validate");
 			// TODO display that the expression is valid
 			if(IsValidExpression() ){
 				Debug.Log ("IT IS VALID !");
@@ -100,97 +102,26 @@ public class PlayerScript : MonoBehaviour {
 		Fonction first = expression[0] as Fonction;
 		Operateur second = expression[1] as Operateur;
 		Fonction third = expression[2] as Fonction;
+		float? firstResult;
+		float? thirdResult;
 		if(first != null && second != null && third != null){
-			float? firstResult = first.Execute(score);
-			float? thirdResult = third.Execute(score);
-			if(firstResult is float && thirdResult is float){
+			firstResult = first.Execute(score);
+			thirdResult = third.Execute(score);
+			if(firstResult == firstResult && thirdResult == thirdResult){
 				score = second.Execute(firstResult, thirdResult);
 			}
 		}
-		if(first != null && second == null && third == null)
-			score = first.Execute(score);
-		if(first == null && second != null && third != null)
-			score = second.Execute(score, third.Execute(score));
+		if(first != null && second == null && third == null){
+			firstResult = first.Execute(score);
+			if(firstResult == firstResult)
+				score = firstResult;
+		}
+		if(first == null && second != null && third != null){
+			thirdResult = third.Execute(score);
+			if(thirdResult == thirdResult)
+				score = second.Execute(score, thirdResult);
+		}
 		return score;
-		/*if (expression [0] is Fonction) {
-			Fonction Firstmember = expression[0] as Fonction;
-			Debug.Log ("Is first member fonction ?" + (Firstmember != null));
-			if(Firstmember.Function == Functions.b){
-				if(expression[1] is Operateur){
-					Operateur Secondmember = expression[1] as Operateur;
-					Debug.Log ("Is second member operateur ?" + (Secondmember != null));
-					if(expression[2] == null){
-						score = Secondmember.Execute (Firstmember.Execute(opponentScore), opponentScore);
-						Debug.Log ("New Score = "+score);
-						return score;
-					} else{
-						//not valid expression
-						Debug.Log ("Not valid expression Function.b + Operateur + whatever");
-						return opponentScore;
-					}
-				} else{
-					//not valid expression
-					Debug.Log ("Not valid expression Function.b + Fonction");
-					return opponentScore;
-				}
-			} else{
-				if(expression[1] is Operateur){
-					Operateur Secondmember = expression[1] as Operateur;
-					Debug.Log ("Is second member operateur ?" + (Secondmember != null));
-					if(expression[2] is Fonction){
-						Fonction Thirdmember = expression[2] as Fonction;
-						Debug.Log ("Is third member fonction ?" + (Thirdmember != null));
-						score = Secondmember.Execute(Firstmember.Execute(opponentScore), Thirdmember.Execute(opponentScore));
-						Debug.Log ("New score = " + score);
-						return score;
-					}
-					else{
-						// this expression is not Function Operator Function type do not chance opponent score
-						Debug.Log ("Wrong expression Fonction + Operateur + Operateur");
-						return opponentScore;
-					}
-				}
-				else{
-					Debug.Log ("Wrong expression Fonction + Fonction + whatever");
-					return opponentScore;
-					//this expression is not Function Operator Function do not change score
-				}
-			}
-		}
-		else if (expression [0] is Operateur) {
-			Operateur Firstmember = expression[0] as Operateur;
-			Debug.Log ("Is first member operateur ?" + (Firstmember != null));
-			if(expression[1] is Fonction){
-				Fonction Secondmember = expression[1] as Fonction;
-				Debug.Log ("Is second member fonction ?" + (Secondmember != null));
-				if(Secondmember.Function == Functions.b){
-					if(expression[2] == null){
-						score = Firstmember.Execute (opponentScore, Secondmember.Execute(opponentScore));
-						Debug.Log ("New score is "+ score);
-					}
-					else{
-						//not valid expression
-						Debug.Log ("Wrong expression Operateur + Fonction.b + whatever");
-						return opponentScore;
-					}
-				}
-				else{
-					Debug.Log ("Wrong expression Operateur + whatever not Function.b");
-					return opponentScore;
-				}
-			}
-			else{
-				Debug.Log ("Wrong expression Operateur + whatever not even Function");
-				return opponentScore;
-			}
-		}
-		else{
-			Debug.Log ("Holy Crap ! Unidentified Flying Object !");
-			return opponentScore;
-		}
-		Debug.LogError ("WE WERE LIKE NEVER SUPPOSED TO GET THERE !");
-		return opponentScore;
-		*/
 	}
 	
 
