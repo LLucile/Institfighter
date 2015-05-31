@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour {
 
+
 	public GameObject[] PlayerUI;
 	public Image[] playersHealth;
 	public Text[] playersScore;
@@ -52,6 +53,12 @@ public class GameUI : MonoBehaviour {
 		instance.transform.SetParent (parent, false);
 
 		instance.Setup (card);
+	}
+
+	public void RemoveCard (int player, int number){
+		UICard card = GetCard (player, number);
+		if (card != null)
+			Destroy (card.gameObject);
 	}
 
 	public void SelectCard(int player, int number, bool selected){
