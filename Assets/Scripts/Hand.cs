@@ -45,16 +45,16 @@ public class Hand : MonoBehaviour {
 
 	public Card GetNewCards(){
 		if ((TL < 10000) && (TL > 0)) {
-
+			// get new card
 		}
 		if ((TL < 10000) && (TL > 0)) {
-			
+			// get new card
 		}
 		if ((TL < 10000) && (TL > 0)) {
-			
+			// get new card
 		}
 		if ((TL < 10000) && (TL > 0)) {
-			
+			// get new card
 		}
 	}
 
