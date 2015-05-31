@@ -25,24 +25,37 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("PlayerScript started");
-
+//		Debug.Log ("Cards : " + ownCards.CB.name + " " + ownCards.CT.name + " " + ownCards.CR.name + " " + ownCards.CL.name);
 	} 
 
 	void Update(){
 		// get the user input
 		Actions tempx = GetAction ();
-
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
+<<<<<<< HEAD
+			// Debug.Log ("Got Action : "+ (int) tempx);
+=======
+			Debug.Log ((int) tempx);
+>>>>>>> origin/master
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
+				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
 				expressionScroller ++;
 				ownCards.SetHandSlotTime(Mathf.Infinity);
 			}
+			else{
+				//Debug.Log ("Waiting time is not zero : " + waitingTime);
+			}
 		}
 		if (tempx == Actions.Cancel) {
+<<<<<<< HEAD
+			Debug.Log ("Received Cancel order");
+=======
+			Debug.Log ("Cancel !");
+>>>>>>> origin/master
 			expression[expressionScroller] = null;
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
@@ -50,6 +63,7 @@ public class PlayerScript : MonoBehaviour {
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx == Actions.Validate){
+				Debug.Log ("validate !");
 				ownCards.SetHandSlotTime(5*CountCard ());
 
 				//check that the calculus is mathematically ok
@@ -73,6 +87,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		// check 
+		ownCards.HandUpdate ();
 		
 	}
 
