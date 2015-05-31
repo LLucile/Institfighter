@@ -40,18 +40,18 @@ public class Deck {
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tanh"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"atanh"));
 
-		Debug.Log ("is fun empty ? " + (fun == null));
-		Debug.Log ("Deck of cards has been created");
+		//Debug.Log ("is fun empty ? " + (fun == null));
+		//Debug.Log ("Deck of cards has been created");
 	}
     // ---------------------------------------------------------------
     // METHODES
     // ---------------------------------------------------------------
 	        
     public Fonction PickFonction(){
-		Debug.Log("bou");
+		//Debug.Log("bou");
 		//int cumsum=0,r;
-		Debug.Log ("is fun empty ? " + (fun == null));
-		Debug.Log ("First fun card is " + fun [0].Function);
+		//Debug.Log ("is fun empty ? " + (fun == null));
+		//Debug.Log ("First fun card is " + fun [0].Function);
 		int cumsum=0,r;
 		Fonction O=fun[0];
 		// sort the cards
@@ -66,11 +66,11 @@ public class Deck {
 				break;
 			}
 		}
-		Debug.Log ("coucou je suis sorti de PickFonction()");
+		//Debug.Log ("coucou je suis sorti de PickFonction()");
 		return O;
 	}
 	public Operateur PickOperateur(){
-		Debug.Log("bou");
+		//Debug.Log("bou");
 		int cumsum=0,r;
 		Operateur O=ope[0];
 		// sort the cards
@@ -85,7 +85,7 @@ public class Deck {
 				break;
 			}
 		}
-		Debug.Log ("Coucou je sors de PickOperator");
+		//Debug.Log ("Coucou je sors de PickOperator");
 		return O;
 	}
 	
