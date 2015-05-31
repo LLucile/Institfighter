@@ -14,6 +14,8 @@ public class GameUI : MonoBehaviour {
 
 	public CameraShake cameraShake;
 
+	public Renderer shalkBoard;
+
 	public static GameUI Instance = null;
 	
 	void Awake() {
@@ -73,6 +75,10 @@ public class GameUI : MonoBehaviour {
 
 	public void Shake(float intensity){
 		cameraShake.ShakeCamera(intensity, 4f, new Vector3());
+	}
+
+	public void SetChalk(){
+
 	}
 
 	UICard GetCard(int player, int number){
