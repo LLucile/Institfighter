@@ -47,7 +47,7 @@ public class Deck : MonoBehaviour {
 	        
     public Fonction PickFonction(){
 		int cumsum=0,r;
-		Card O=fun[0];
+		Fonction O=fun[0];
 		// sort the cards
 		float sum = fun.Sum(P=>P.weight);
 		r = (int) UnityEngine.Random.Range(1f,sum);
@@ -64,7 +64,7 @@ public class Deck : MonoBehaviour {
 	}
 	public Operateur PickOperateur(){
 		int cumsum=0,r;
-		Card O=ope[0];
+		Operateur O=ope[0];
 		// sort the cards
 		float sum = ope.Sum(P=>P.weight);
 		r = (int) UnityEngine.Random.Range(1f,sum);
