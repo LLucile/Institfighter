@@ -7,9 +7,9 @@
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		
-		_FuncA ("FuncA", Float) = 0
-		_FuncB ("FuncB", Float) = 0
-		_Operator ("Operator", Float) = 0
+		_FuncA ("FuncA", Range(0, 17)) = 0
+		_FuncB ("FuncB", Range(0, 17)) = 0
+		_Operator ("Operator", Range(0, 3)) = 0
 		_ValA ("ValA", Float) = 1.0
 		_ValB ("ValB", Float) = 1.0
 		_Score ("Score", Float) = 0.0		
@@ -30,6 +30,7 @@
 
 		struct Input {
 			float2 uv_MainTex;
+			float4 screenPos;
 		};
 
 		half _Glossiness;
@@ -44,6 +45,24 @@
 		float _ValB;
 		float _Score;
 		
+		float Hash (float2 p)
+		{
+		    float3 p2 = float3(p.xy, 1.0);
+		    return frac(sin(dot(p2, float3(37.1, 61.7, 12.4))) * 3758.5453123);
+		}
+
+		float noise (float2 p)
+		{
+			p *= 200.;
+		    float2 i = floor(p);
+		    float2 f = frac(p);
+		    f *= f * (3.0 - 2.0 * f);
+
+		    return lerp(lerp(Hash(i + float2(0., 0.)), Hash(i + float2(1., 0.)), f.x),
+		                lerp(Hash(i + float2(0., 1.)), Hash(i + float2(1., 1.)), f.x),
+		                f.y);
+		}
+
 		float root (float val)
 		{
 		    return pow(val, 1. / _ValA);
@@ -119,7 +138,7 @@
 		    if (func == fn_tanh   ) return tanh(val);
 		    if (func == fn_arctanh) return atanh(val);
 		    
-		    return 1.;
+		    return 0. / 0.;
 		}
 
 		float computeOperator (int op, float a, float b)
@@ -128,73 +147,85 @@
 			const int op_minus = 1;
 			const int op_mult  = 2;
 			const int op_div   = 3;
+			
+			if (isnan(a))
+				return a;
+				
+			if (isnan(b))
+				return b;
 		
 		    if (op == op_plus ) return a + b;
 		    if (op == op_minus) return a - b;
 		    if (op == op_mult ) return a * b;
 		    if (op == op_div  ) return a / b;
 
-		    return -1.;
+		    return 0. / 0.;
 		}
 
-		float4 plot (float2 uv, float y)
+		float4 drawMark (float2 nuv, float2 screenPos)
 		{
-			const float edge = 0.1;
-		
-		    float dist = abs(uv.y - y);
-
-		    if (dist < edge)
-		    {
-		    	float v = smoothstep(1., 0., dist / edge);
-		        return float4(v, v, v, v);
-		    }
-
-		    return float4(0., 0., 0., 0.);
-		}
-
-		float4 drawMark (float2 uv)
-		{
-			const float markEdge = 0.1;
+			const float markEdge = 0.0125;
 			
 		    float4 c = float4(0., 0., 0., 0.);
 
-		    if ((uv.x >= -markEdge) && (uv.x <= markEdge))
+		    if ((nuv.x >= -markEdge) && (nuv.x <= markEdge))
 		    {
-		    	float v;
-		        if (uv.x < 0.)
-		            v = smoothstep(-markEdge, 0., uv.x);
-		        else
-		            v = smoothstep(markEdge, 0., uv.x);
+		    	float v = noise(screenPos) + 1.;
 		        c += float4(v, v, v, v);
 		    }
 
-		    if (uv.y > -markEdge && uv.y < markEdge)
+		    if (nuv.y > -markEdge && nuv.y < markEdge)
 		    {
-		    	float v;
-		        if (uv.y < 0.)
-		            v = smoothstep(-markEdge, 0., uv.y);
-		        else
-		            v = smoothstep(markEdge, 0., uv.y);
+		    	float v = noise(screenPos) + 1.;
 		        c += float4(v, v, v, v);
 		    }
 
 		    return c;
 		}
 
+		float4 plot (float2 uv, float2 screenPos, float y, float absScoreResult)
+		{
+			const float edge = 0.025 * absScoreResult;
+			
+			if (isnan(y))
+				return float4(0., 0., 0., 0.);
+		
+		    float dist = abs(uv.y - y);
+			
+			if (isnan(dist))
+				return float4(0., 0., 0., 0.);
+
+		    if (dist < edge)
+		    {
+		    	float v = noise(screenPos) + 1.;
+		        return float4(v, v, v, v);
+		    }
+
+		    return float4(0., 0., 0., 0.);
+		}
+
 		void surf (Input IN, inout SurfaceOutputStandard o)
 		{
-			float2 uv = IN.uv_MainTex.xy * 2.0 - 1.0;
-			uv *= abs(_Score) + 1.0;
-			
+			float vsA = computeValue(int(_FuncA), _Score);
+			float vsB = computeValue(int(_FuncB), _Score);
+			float absScoreResult = max(abs(computeOperator(_Operator, vsA, vsB)), 1.);
+			float absScore = max(abs(_Score), 1.);
+
+			float2 nuv = IN.uv_MainTex.xy * 2. - 1.;
+			float2 uv = nuv;
+			nuv.x *= 2.25; // Board object ratio
+			uv.x *= absScore;
+			uv.y *= absScoreResult;
+
 			float vA = computeValue(int(_FuncA), uv.x);
 			float vB = computeValue(int(_FuncB), uv.x);
-			float vR = computeOperator(_Operator, vA, vB);			
-			
+			float vR = computeOperator(_Operator, vA, vB);
+
 			// Albedo comes from a texture tinted by color
-			fixed4 c = drawMark(uv) * _Color;
-			c += plot(uv, vA) * _FnAColor;
-			c += plot(uv, vB) * _FnBColor;
-			c += plot(uv, vR);
+			fixed4 c = drawMark(nuv, IN.screenPos.xy) * _Color;
+			c += plot(uv, IN.screenPos.xy, vA, absScoreResult) * _FnAColor;
+			c += plot(uv, IN.screenPos.xy, vB, absScoreResult) * _FnBColor;
+			c += plot(uv, IN.screenPos.xy, vR, absScoreResult);
 			
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables
