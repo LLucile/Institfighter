@@ -8,7 +8,7 @@ public class Hand {
 	Card CR;
 	Card CT;
 	Card CB;
-	float T = 0;
+	float T = -1;
 	// Use this for initialization
 	void Start () {
 		CL = GameManager.heap.PickFonction ();

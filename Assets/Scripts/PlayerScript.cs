@@ -31,15 +31,19 @@ public class PlayerScript : MonoBehaviour {
 	void Update(){
 		// get the user input
 		Actions tempx = GetAction ();
-
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
+			Debug.Log ("Got Action : "+ (int) tempx);
 			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
+				Debug.Log ("Waiting time is zero");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
 				expressionScroller ++;
 				ownCards.SetHandSlotTime(Mathf.Infinity);
+			}
+			else{
+				//Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
