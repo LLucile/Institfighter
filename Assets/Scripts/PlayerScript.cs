@@ -10,7 +10,7 @@ public class PlayerScript : MonoBehaviour {
 	public string sButtonCancel = "Back";
 
 	//oponnent score
-	public float? opponentScore = 10;
+	public float opponentScore = 10;
 
 	// hand
 	public Hand ownCards = new Hand();
@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour {
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
 				if(tempScore != null){
-					opponentScore = tempScore;
+					opponentScore = (float) tempScore;
 				}
 				else{
 					// TODO forbidden mathematical operation feedback (0 points)
@@ -74,37 +74,37 @@ public class PlayerScript : MonoBehaviour {
 		
 	}
 
-	private float? ComputeOpponentScore(){
-		if ( (expression [0] != null) && (expression [0] is Function) ) {
-			float? score0 = expression [0].Execute (opponentScore);
-			if (score0 == null) {
-				Debug.Log("score = ", opponentScore);
-				return opponentScore;
-			}
-		}
-		if (expression [1] != null) {
-			if(expression[1] is Function){
-				float? score3 = expression[0].Execute (opponentScore, expression[1].Execute (0));
+	float? ComputeOpponentScore(){
+		float? score0 = null;
+		float? score1 = null;
+		float? score2 = null;
+		if (expression [0] is Fonction) {
+			Fonction Firstmember = (Fonction) expression [0];
+			score0 = Firstmember.Execute(opponentScore);
+			if(Firstmember.Function == Functions.b){
+				Operateur Secondmember = (Operateur) expression[1];
+				return Secondmember.Execute(opponentScore, Firstmember.Execute(opponentScore));
 			}
 			else{
-				float? score2 = expression [2].Execute (opponentScore);
-				if (score0 == null) {
-					Debug.Log("score = ", opponentScore);
-					return opponentScore;
-				}
-				float? score3 = expression [1].Execute (score0, score2);
-				if (score0 == null) {
-					Debug.Log("score = ", opponentScore);
-					return opponentScore;
-				}
+				Operateur Secondmember = (Operateur) expression[1];
+				Fonction Thirdmember = (Fonction) expression[2];
+				score0 = Firstmember.Execute(opponentScore);
+				score2 = Thirdmember.Execute(opponentScore);
+				score1 = Secondmember.Execute(score0, score2);
+				return score1;
 			}
 		}
-		return score3;
+		else {
+			Operateur Firstmember = (Operateur) expression[0];
+			Fonction Secondmember = (Fonction) expression[1];
+			return Firstmember.Execute (opponentScore, Secondmember.Execute(opponentScore));
+		}
+
 	}
 
 	Actions GetAction(){
-		int h = Input.GetButtonDown (sbutton1);
-		int v = Input.GetButtonDown (sbutton2);
+		float h = Input.GetAxis (sButton1);
+		float v = Input.GetAxis (sButton2);
 		if (h < -0.5) {
 			return Actions.Left;
 		}
@@ -122,6 +122,8 @@ public class PlayerScript : MonoBehaviour {
 		}
 		if (Input.GetButtonDown (sButtonCancel)) {
 			return Actions.Cancel;
+		} else {
+			return Actions.None;
 		}
 	}
 
@@ -142,6 +144,7 @@ public class PlayerScript : MonoBehaviour {
 	bool IsValidExpression(){
 		if (expression [0] != null) {
 			if (expression [0] is Fonction) {
+				Fonction expression0 = (Fonction) expression[0];
 				if (expression [1] == null) {
 					return true;
 				} 
@@ -156,7 +159,12 @@ public class PlayerScript : MonoBehaviour {
 							}
 						}
 						else{
-							return false;
+							if(expression0.Function == Functions.b){
+								return true;
+							}
+							else{
+								return false;
+							}
 						}
 					} 
 					else {
@@ -165,8 +173,14 @@ public class PlayerScript : MonoBehaviour {
 				}
 			} 
 			else {
-				if(expression[1].Function == Functions.b){
-					return true;
+				if(expression[1] is Fonction){
+					Fonction expression1 = (Fonction) expression[1];
+					if(expression1.Function == Functions.b){
+						return true;
+					}
+					else{
+						return false;
+					}
 				}
 				else{
 					return false;
