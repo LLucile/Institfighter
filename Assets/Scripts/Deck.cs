@@ -63,6 +63,7 @@ public class Deck {
 				break;
 			}
 		}
+		Debug.Log ("coucou je suis sorti");
 		return O;
 	}
 	public Operateur PickOperateur(){

@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour {
 	public float opponentScore = 10;
 
 	// hand
-	private Hand ownCards = new Hand();
+	private Hand ownCards;
 
 	// expression browsing variables
 	private int expressionScroller = 0;
@@ -25,7 +25,9 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Debug.Log ("PlayerScript started");
-//		Debug.Log ("Cards : " + ownCards.CB.name + " " + ownCards.CT.name + " " + ownCards.CR.name + " " + ownCards.CL.name);
+		ownCards = new Hand();
+		//Debug.Log ("Cards : " + ownCards.CB.name + " " + ownCards.CT.name + " " + ownCards.CR.name + " " + ownCards.CL.name);
+		Debug.Log ("Start successfull");
 	} 
 
 	void Update(){
@@ -151,6 +153,9 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	bool IsValidExpression(){
+		if (expressionScroller == 0) {
+			return false;
+		}
 		if (expression [0] != null) {
 			if (expression [0] is Fonction) {
 				Fonction expression0 = (Fonction) expression[0];

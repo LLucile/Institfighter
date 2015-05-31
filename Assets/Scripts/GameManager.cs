@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour {
 	public event OnStateChangeHandler OnStateChange;
 	public  GameState gameState { get; private set; }
 
-	void Start() {
+	void Awake() {
+		Debug.Log ("Game Manager started");
 		heap = new Deck();
 	}
 	
