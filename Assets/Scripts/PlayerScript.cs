@@ -78,6 +78,7 @@ public class PlayerScript : MonoBehaviour {
 		if ( (expression [0] != null) && (expression [0] is Function) ) {
 			float? score0 = expression [0].Execute (opponentScore);
 			if (score0 == null) {
+				Debug.Log("score = ", opponentScore);
 				return opponentScore;
 			}
 		}
@@ -88,10 +89,12 @@ public class PlayerScript : MonoBehaviour {
 			else{
 				float? score2 = expression [2].Execute (opponentScore);
 				if (score0 == null) {
+					Debug.Log("score = ", opponentScore);
 					return opponentScore;
 				}
 				float? score3 = expression [1].Execute (score0, score2);
 				if (score0 == null) {
+					Debug.Log("score = ", opponentScore);
 					return opponentScore;
 				}
 			}
