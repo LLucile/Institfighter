@@ -31,11 +31,11 @@ public class Questionnaire : MonoBehaviour {
 	}
 
 	void Update(){
-		//p =this.Afficher (createAnswer, createQuestion);
-		//this.Reponse (p);
+		p =this.Afficher (createAnswer, createQuestion);
+		this.Reponse (p);
 	}
 
-	public int Afficher(){ 
+	public int Afficher(p){ 
 
 		currentQuestion = (int) Random.Range(0,11);
 
@@ -46,7 +46,7 @@ public class Questionnaire : MonoBehaviour {
 		createQuestion.text = str;
 
 		for (int i= 0; i < 3; i++ ){
-			s = reponse[i] + "" ;
+<			s = reponse[i] + "" ;
 
 			createAnswer.text = s;
 			Debug.Log(s);
