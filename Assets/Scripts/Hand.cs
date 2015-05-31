@@ -11,7 +11,11 @@ public class Hand : MonoBehaviour {
 	int T = 0;
 	// Use this for initialization
 	void Start () {
-		// TODO get some random cards
+		Card CL = GameManager.heap.PickFonction ();
+		Card CR = GameManager.heap.PickFonction ();
+		Card CT = GameManager.heap.PickOperateur ();
+		Card CB = GameManager.heap.PickOperateur ();
+
 	}
 	
 	// Update is called once per frame
@@ -44,17 +48,17 @@ public class Hand : MonoBehaviour {
 	
 
 	public Card GetNewCards(){
-		if ((TL < 10000) && (TL > 0)) {
-			// TODO get new card
+		if ((T < 10000) && (T > 0)) {
+			Card CL = GameManager.heap.PickFonction ();
 		}
-		if ((TL < 10000) && (TL > 0)) {
-			// TODO get new card
+		if ((T < 10000) && (T > 0)) {
+			Card CR = GameManager.heap.PickFonction ();
 		}
-		if ((TL < 10000) && (TL > 0)) {
-			// TODO get new card
+		if ((T < 10000) && (T > 0)) {
+			Card CT = GameManager.heap.PickOperateur ();
 		}
-		if ((TL < 10000) && (TL > 0)) {
-			// TODO get new card
+		if ((T < 10000) && (T > 0)) {
+			Card CB = GameManager.heap.PickOperateur ();
 		}
 	}
 
