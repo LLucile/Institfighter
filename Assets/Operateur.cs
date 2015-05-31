@@ -4,9 +4,10 @@ using System.Collections;
 public class Operateur : Card {
 	
 	private Operators Operator;
-	public Operateur(int weight, Operators Operator){
+	public Operateur(int weight, Operators Operator, string name){
 		this.weight = weight;
 		this.Operator = Operator;
+		this.name = name;
 	}
 	public float? Execute(float? f1, float? f2){
 		float? res=null;

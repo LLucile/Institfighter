@@ -18,10 +18,10 @@ public class Deck {
 		//     INITIALISATION DES CARTES
 		// -------------------------------------------------------------
 
-		ope.Add(new Operateur(5, Operators.Plus));
-		ope.Add(new Operateur(5, Operators.Minus));
-	    ope.Add(new Operateur(3, Operators.Multiply));
-	    ope.Add(new Operateur(3, Operators.Divide));
+		ope.Add(new Operateur(5, Operators.Plus, "+"));
+		ope.Add(new Operateur(5, Operators.Minus, "-"));
+	    ope.Add(new Operateur(3, Operators.Multiply, "x"));
+	    ope.Add(new Operateur(3, Operators.Divide, "/"));
 	    fun.Add(new Fonction(3 ,Functions.e            ,"Exponetielle"));
 	    fun.Add(new Fonction(3 ,Functions.ln           ,"Logarithme"));
 	    fun.Add(new Fonction(10,Functions.ax           ,"Linéaire"));
