@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour {
 
-
 	public GameObject[] PlayerUI;
 	public Image[] playersHealth;
 	public Text[] playersScore;
@@ -12,6 +11,8 @@ public class GameUI : MonoBehaviour {
 
 	public RectTransform[] p1cards;
 	public RectTransform[] p2cards;
+
+	public CameraShake cameraShake;
 
 	public static GameUI Instance = null;
 	
@@ -37,7 +38,7 @@ public class GameUI : MonoBehaviour {
 
 	public void SetHealth(int player, float amount){
 		playersScore[player].text = amount+"";
-		playersHealth[player].fillAmount = Mathf.Abs(amount);
+		playersHealth[player].fillAmount = Mathf.Abs(Mathf.Max(amount, GameManager.Instance.maxScore)/GameManager.Instance.maxScore);
 	}
 
 	public void CreateCard(int player, int number, Card card){
@@ -68,6 +69,10 @@ public class GameUI : MonoBehaviour {
 		} else {
 			card.Unselect();
 		}
+	}
+
+	public void Shake(float intensity){
+		cameraShake.ShakeCamera(intensity, 4f, new Vector3());
 	}
 
 	UICard GetCard(int player, int number){

@@ -33,11 +33,11 @@ Material:
       data:
         first:
           name: _FuncA
-        second: 1
+        second: 7.92000008
       data:
         first:
           name: _FuncB
-        second: 2
+        second: 2.49000001
       data:
         first:
           name: _Operator

@@ -353,6 +353,7 @@ MonoBehaviour:
   - {fileID: 22409246}
   - {fileID: 22436194}
   - {fileID: 22441474}
+  cameraShake: {fileID: 0}
 --- !u!114 &11426404
 MonoBehaviour:
   m_ObjectHideFlags: 1
