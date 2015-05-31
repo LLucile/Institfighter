@@ -34,7 +34,7 @@ public class Hand {
 		TL = TL - Time.deltaTime;
 	}
 
-	public float GetHandSlotWaitingTime(Actions a){
+	public float? GetHandSlotWaitingTime(Actions a){
 		switch (a) {
 		case Actions.Left:
 			return TL;

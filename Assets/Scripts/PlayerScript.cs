@@ -36,8 +36,8 @@ public class PlayerScript : MonoBehaviour {
 		//Debug.Log ("w i");
 		Actions tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
-			if(waitingTime <= 0){ // if the card is immediatly available
+			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
+			if(waitingTime <= 0 && tempx != lastAction && expressionScroller < 3){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
@@ -51,15 +51,20 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if (tempx == Actions.Cancel) {
-
-			expression[expressionScroller] = null;
+			Debug.Log(expressionScroller);
+			expression[expressionScroller-1] = null;
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
 		}
-
-		if(IsValidExpression() ){
+		if(tempx == Actions.Validate){
+			Debug.Log("test validate");
+			if(IsValidExpression()){
+				Debug.Log("IT IS VALID !");
+			}
+		}
+		if(tempx == Actions.Validate){
 			// TODO display that the expression is valid
-			if(tempx == Actions.Validate){
+			if(IsValidExpression() ){
 				Debug.Log ("validate !");
 				ownCards.SetHandSlotTime(5*CountCard ());
 				Debug.Log ("n cards =" + CountCard ());
@@ -212,10 +217,13 @@ public class PlayerScript : MonoBehaviour {
 
 	bool IsValidExpression(){
 		if(expression[0] is Fonction && expression[1] is Operateur && expression[2] is Fonction){
+			Debug.Log("f+o+f");
 			return true;
 		} else if(expression[0] is Fonction && expression[1]==null && expression[2]==null) {
+			Debug.Log("f");
 			return true;
 		} else if(expression[0]==null && expression[1] is Operateur && expression[2] is Fonction) {
+			Debug.Log("o+f");
 			Fonction expression2 = expression [0] as Fonction;
 			if(expression2.Function==Functions.b){
 				return true;
