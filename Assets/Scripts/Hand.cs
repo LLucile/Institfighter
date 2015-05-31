@@ -71,7 +71,24 @@ public class Hand {
 	
 	}
 
-	public void SetHandSlotTime(float time){
+	public void SetHandSlotTime(Actions a, float time){
+		switch (a) {
+		case Actions.Left:
+			TL = time;
+			break;
+		case Actions.Right:
+			TR = time;
+			break;
+		case Actions.Bottom:
+			TB = time;
+			break;
+		case Actions.Top:
+			TT = time;
+			break;
+		}		
+	}
+
+	public void SetTime(float time){
 		if (TB > 10000) {
 			TB = time;
 		}
