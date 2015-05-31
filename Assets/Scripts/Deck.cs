@@ -38,14 +38,31 @@ public class Deck : MonoBehaviour {
 	    fun.Add(new Fonction(5 ,Functions.arctan       ,"arc-tangeante"));
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
-        Card p = this.Pick();
+        Fonction p = this.PickFonction();
         Console.WriteLine(p.weight);
 	}
     // ---------------------------------------------------------------
     // METHODES
     // ---------------------------------------------------------------
 	        
-    public Card Pick(){
+    public Fonction PickFonction(){
+		int cumsum=0,r;
+		Card O=fun[0];
+		// sort the cards
+		float sum = fun.Sum(P=>P.weight);
+		r = (int) UnityEngine.Random.Range(1f,sum);
+		// Console.WriteLine(sum);
+		fun = fun.OrderBy(o=>o.weight).ToList();
+		for(int i=0; i<fun.Count;i++){
+			cumsum += fun[i].weight;
+			if(cumsum > r){
+				O = fun[i];
+				break;
+			}
+		}
+		return O;
+	}
+	public Operateur PickOperateur(){
 		int cumsum=0,r;
 		Card O=ope[0];
 		// sort the cards
