@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// some useful variables
 	private Actions lastAction = Actions.None;
+	private Actions tempx;
 
 	// Use this for initialization
 	void Start () {
@@ -33,34 +34,43 @@ public class PlayerScript : MonoBehaviour {
 
 	void Update(){
 		// get the user input
-		//Debug.Log ("w i");
-		Actions tempx = GetAction ();
+		// Debug.Log ("w i");
+		tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
-			if(waitingTime <= 0){ // if the card is immediatly available
+			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
+			if(waitingTime <= 0 && tempx != lastAction && expressionScroller < 3){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
+				Debug.Log ("expressionScroller = " + expressionScroller);
+				Debug.Log ("last action is "+lastAction);
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
 				Debug.Log ("Card is "+ expression[expressionScroller].name);
 				expressionScroller ++;
-				ownCards.SetHandSlotTime(Mathf.Infinity);
+				ownCards.SetHandSlotTime(lastAction, Mathf.Infinity);
+				Debug.Log ("last action is "+lastAction);
 			}
 			else{
 				//Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
-
-			expression[expressionScroller] = null;
+			Debug.Log(expressionScroller);
+			expression[expressionScroller-1] = null;
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
 		}
-		if(IsValidExpression() ){
+		if(tempx == Actions.Validate){
+			Debug.Log("test validate");
+			if(IsValidExpression()){
+				Debug.Log("IT IS VALID !");
+			}
+		}
+		if(tempx == Actions.Validate){
 			// TODO display that the expression is valid
-			if(tempx == Actions.Validate){
+			if(IsValidExpression() ){
 				Debug.Log ("validate !");
-				ownCards.SetHandSlotTime(5*CountCard ());
+				ownCards.SetTime(5*CountCard ());
 				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
@@ -210,6 +220,26 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	bool IsValidExpression(){
+		if(expression[0] is Fonction && expression[1] is Operateur && expression[2] is Fonction){
+			Debug.Log("f+o+f");
+			return true;
+		} else if(expression[0] is Fonction && expression[1]==null && expression[2]==null) {
+			Debug.Log("f");
+			return true;
+		} else if(expression[0]==null && expression[1] is Operateur && expression[2] is Fonction) {
+			Debug.Log("o+f");
+			Fonction expression2 = expression [0] as Fonction;
+			if(expression2.Function==Functions.b){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+		/*
 		if (expressionScroller == 0) {
 			return false;
 		}
@@ -260,7 +290,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 		else {
 			return false;
-		}
+		}*/
 	}
 
 }
