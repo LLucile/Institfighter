@@ -60,6 +60,8 @@ public class PlayerScript : MonoBehaviour {
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
 		}
+		if(tempx == Actions.Validate)
+			Debug.Log ("validate !");
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
 			if(tempx == Actions.Validate){
