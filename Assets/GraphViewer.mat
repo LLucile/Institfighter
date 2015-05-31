@@ -33,11 +33,11 @@ Material:
       data:
         first:
           name: _FuncA
-        second: 5.69999981
+        second: 1
       data:
         first:
           name: _FuncB
-        second: 0
+        second: 2
       data:
         first:
           name: _Operator
@@ -53,7 +53,7 @@ Material:
       data:
         first:
           name: _Score
-        second: 5
+        second: 4.23999977
     m_Colors:
       data:
         first:
@@ -62,11 +62,11 @@ Material:
       data:
         first:
           name: _FnAColor
-        second: {r: 1, g: 0, b: 0, a: 1}
+        second: {r: 1, g: .501960814, b: .501960814, a: 1}
       data:
         first:
           name: _FnBColor
-        second: {r: 0, g: 0, b: 1, a: 1}
+        second: {r: .501960814, g: .501960814, b: 1, a: 1}
       data:
         first:
           name: _Resolution
