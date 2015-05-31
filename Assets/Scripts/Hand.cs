@@ -11,10 +11,10 @@ public class Hand : MonoBehaviour {
 	float T = 0;
 	// Use this for initialization
 	void Start () {
-		Card CL = GameManager.heap.PickFonction ();
-		Card CR = GameManager.heap.PickFonction ();
-		Card CT = GameManager.heap.PickOperateur ();
-		Card CB = GameManager.heap.PickOperateur ();
+		CL = GameManager.heap.PickFonction ();
+		CR = GameManager.heap.PickFonction ();
+		CT = GameManager.heap.PickOperateur ();
+		CB = GameManager.heap.PickOperateur ();
 
 	}
 	
@@ -51,10 +51,10 @@ public class Hand : MonoBehaviour {
 
 	public void GetNewCards(){
 		if ((T < 10000) && (T > 0)) {
-			Card CL = GameManager.heap.PickFonction ();
-			Card CR = GameManager.heap.PickFonction ();
-			Card CT = GameManager.heap.PickOperateur ();
-			Card CB = GameManager.heap.PickOperateur ();
+			CL = GameManager.heap.PickFonction ();
+			CR = GameManager.heap.PickFonction ();
+			CT = GameManager.heap.PickOperateur ();
+			CB = GameManager.heap.PickOperateur ();
 		}
 	}
 
