@@ -1,0 +1,232 @@
+fileFormatVersion: 2
+guid: 40ca07c9ed51df84c956a4451ca82254
+timeCreated: 1433091073
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: p1Head
+    21300002: p1Shadow
+    21300004: p1LeftArm
+    21300006: p1RightArm
+    21300008: p1Torso
+    21300010: p1LeftLeg
+    21300012: p1RightLeg
+    21300014: p1LeftForarm
+    21300016: p1RightFormarm
+    21300018: p1LeftShin
+    21300020: p1RightShin
+    21300022: p1Boot
+    21300024: p1LeftHand
+    21300026: p1RightHand
+    21300028: p1RightShoe
+    21300030: p1RightShoe
+    21300032: p1LeftShoe
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: p1Head
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 858
+        width: 105
+        height: 151
+      alignment: 9
+      pivot: {x: .406889349, y: .103431143}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1Shadow
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 888
+        width: 294
+        height: 53
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1LeftArm
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 680
+        width: 88
+        height: 123
+      alignment: 9
+      pivot: {x: .791632295, y: .857681394}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1RightArm
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 675
+        width: 60
+        height: 134
+      alignment: 9
+      pivot: {x: .703680158, y: .86479938}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1Torso
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 571
+        width: 122
+        height: 246
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1LeftLeg
+      rect:
+        serializedVersion: 2
+        x: 565
+        y: 673
+        width: 56
+        height: 135
+      alignment: 9
+      pivot: {x: .56982857, y: .834719062}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1RightLeg
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 678
+        width: 93
+        height: 128
+      alignment: 9
+      pivot: {x: .252386272, y: .842840672}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1LeftForarm
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 518
+        width: 46
+        height: 135
+      alignment: 9
+      pivot: {x: .367165595, y: .862097144}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1RightFormarm
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 534
+        width: 105
+        height: 102
+      alignment: 9
+      pivot: {x: .17411238, y: .811510265}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1LeftShin
+      rect:
+        serializedVersion: 2
+        x: 537
+        y: 481
+        width: 76
+        height: 130
+      alignment: 9
+      pivot: {x: .745830357, y: .8442505}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1RightShin
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 475
+        width: 50
+        height: 133
+      alignment: 9
+      pivot: {x: .387032479, y: .859353423}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1Boot
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 480
+        width: 110
+        height: 50
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1LeftHand
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 388
+        width: 52
+        height: 66
+      alignment: 9
+      pivot: {x: .335489422, y: .759228349}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1RightHand
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 401
+        width: 49
+        height: 51
+      alignment: 9
+      pivot: {x: .300000012, y: .699999988}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1LeftShoe
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 386
+        width: 70
+        height: 37
+      alignment: 9
+      pivot: {x: .31649214, y: .797261}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: p1RightShoe
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 387
+        width: 70
+        height: 37
+      alignment: 9
+      pivot: {x: .325024426, y: .806803942}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
