@@ -25,13 +25,49 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: .512000024
       data:
         first:
           name: _Metallic
         second: 0
+      data:
+        first:
+          name: _FuncA
+        second: 6
+      data:
+        first:
+          name: _FuncB
+        second: 0
+      data:
+        first:
+          name: _Operator
+        second: 2
+      data:
+        first:
+          name: _ValA
+        second: 1
+      data:
+        first:
+          name: _ValB
+        second: 1
+      data:
+        first:
+          name: _Score
+        second: 10
     m_Colors:
       data:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _FnAColor
+        second: {r: 1, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _FnBColor
+        second: {r: 0, g: 0, b: 1, a: 1}
+      data:
+        first:
+          name: _Resolution
+        second: {r: 640, g: 480, b: 0, a: 0}

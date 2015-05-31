@@ -12,9 +12,7 @@
 		_Operator ("Operator", Float) = 0
 		_ValA ("ValA", Float) = 1.0
 		_ValB ("ValB", Float) = 1.0
-		_Score ("Score", Float) = 0.0
-		_Resolution ("Resolution", Vector) = (640.0, 480.0, 0.0, 0.0)
-		
+		_Score ("Score", Float) = 0.0		
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -44,7 +42,6 @@
 		float _ValA;
 		float _ValB;
 		float _Score;
-		fixed4 _Resolution;
 		
 		float root (float val)
 		{
