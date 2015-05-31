@@ -48,7 +48,7 @@ public class Deck {
     // ---------------------------------------------------------------
 	        
     public Fonction PickFonction(){
-		//Debug.Log("bou");
+		Debug.Log("bou");
 		//int cumsum=0,r;
 		//Debug.Log ("is fun empty ? " + (fun == null));
 		//Debug.Log ("First fun card is " + fun [0].Function);

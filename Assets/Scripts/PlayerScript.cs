@@ -56,10 +56,10 @@ public class PlayerScript : MonoBehaviour {
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
 		}
-		if(IsValidExpression() ){
+		if(tempx == Actions.Validate){
 			Debug.Log ("Expression valid !");
 			// TODO display that the expression is valid
-			if(tempx == Actions.Validate){
+			if(IsValidExpression() ){
 				Debug.Log ("validate !");
 				ownCards.SetHandSlotTime(5*CountCard ());
 				Debug.Log ("n cards =" + CountCard ());
@@ -171,20 +171,36 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	bool IsValidExpression(){
-		if (expression [0] is Fonction) {
+		if(expression[0] is Fonction && expression[1] is Operateur && expression[2] is Fonction){
+			return true;
+		} else if(expression[0] is Fonction && expression[1]==null && expression[2]==null) {
+			return true;
+		} else if(expression[0]==null && expression[1] is Operateur && expression[2] is Fonction) {
+			Fonction expression2 = expression [0] as Fonction;
+			if(expression2.Function==Functions.b){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+		//if (expression [0] is Fonction) {
 			//Debug.Log ("expression0 is a function");
-			Fonction expression0 = expression [0] as Fonction;
-			if (expression [1] is Operateur) {
-				Debug.Log ("expression1 is an operator");
-				if (expression [2] is Fonction) {
-					Debug.Log ("expression2 is a function");
-					Debug.Log ("Valid expression !");
-					return true;
-				} else {
-					Debug.Log ("expression2 is not a function");
+			//Fonction expression0 = expression [0] as Fonction;
+			//if (expression [1] is Operateur) {
+				//Debug.Log ("expression1 is an operator");
+				//if (expression [2] is Fonction) {
+					//Debug.Log ("expression2 is a function");
+					//Debug.Log ("Valid expression !");
+					//return true;
+				//} else {
+					//Debug.Log ("expression2 is not a function");
 					//Debug.Log ("[IsValidExpression] wrong expression function+operator+operator");
-					return false;
-				}
+					//return false;
+				/*}
 			} else {
 				//Debug.Log ("[IsValidExpression]wrong expression fonction.b + not operator");
 				return false;
@@ -212,6 +228,6 @@ public class PlayerScript : MonoBehaviour {
 		else {
 			// void expression
 			return false;
-		}
+		}*/
 	}
 }
