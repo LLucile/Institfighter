@@ -14,7 +14,7 @@ public class GameUI : MonoBehaviour {
 
 	public CameraShake cameraShake;
 
-	public Renderer shalkBoard;
+	public Renderer chalkBoard;
 
 	public static GameUI Instance = null;
 	
@@ -40,7 +40,7 @@ public class GameUI : MonoBehaviour {
 
 	public void SetHealth(int player, float amount){
 		playersScore[player].text = amount+"";
-		playersHealth[player].fillAmount = Mathf.Abs(Mathf.Max(amount, GameManager.Instance.maxScore)/GameManager.Instance.maxScore);
+		playersHealth[player].fillAmount = Mathf.Abs(Mathf.Min(amount, GameManager.Instance.maxScore)/GameManager.Instance.maxScore);
 	}
 
 	public void CreateCard(int player, int number, Card card){
@@ -77,8 +77,8 @@ public class GameUI : MonoBehaviour {
 		cameraShake.ShakeCamera(intensity, 4f, new Vector3());
 	}
 
-	public void SetChalk(){
-
+	public void SetChalk(int value){
+		chalkBoard.material.SetInt("FuncA", value);
 	}
 
 	UICard GetCard(int player, int number){
