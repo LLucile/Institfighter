@@ -73,6 +73,7 @@ public class PlayerScript : MonoBehaviour {
 				int waitingtime = 1*CountCard ();
 				Debug.Log ("waiting time = "+waitingtime);
 				ownCards.SetTime(waitingtime);
+				GameUI.Instance.Shake (0.7f);
 
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
@@ -84,7 +85,7 @@ public class PlayerScript : MonoBehaviour {
 					GameUI.Instance.SetHealth(playerNumber, opponentScore);
 				}
 				else{
-					// TODO forbidden mathematical operation feedback (0 points)
+					// TODO forbidden mathematical operation feedback (sad noise)
 				}
 				expression[0] = null;
 				expression[1] = null;
