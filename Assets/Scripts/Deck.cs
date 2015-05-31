@@ -38,8 +38,6 @@ public class Deck {
 	    fun.Add(new Fonction(5 ,Functions.arctan       ,"arc-tangeante"));
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
-        Fonction p = this.PickFonction();
-        Console.WriteLine(p.weight);
 	}
     // ---------------------------------------------------------------
     // METHODES
