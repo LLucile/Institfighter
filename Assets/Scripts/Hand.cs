@@ -39,12 +39,12 @@ public class Hand : MonoBehaviour {
 			case Actions.Top:
 				return CT;
 			default:
-			return null;
+				return null;
 		}	
 	
 	}
 
-	public void SetHandSlotTime(int time){
+	public void SetHandSlotTime(float time){
 		T = time;
 	}
 	

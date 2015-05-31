@@ -32,27 +32,27 @@ public class PlayerScript : MonoBehaviour {
 		Actions tempx = GetAction ();
 
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-			int waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
+			float waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0){ // if the card is immediatly available
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
 				expressionScroller ++;
-				ownCards.SetHandSlotCard(Mathf.Infinity);
+				ownCards.SetHandSlotTime(Mathf.Infinity);
 			}
 		}
 		if (tempx == Actions.Cancel) {
 			expression[expressionScroller] = null;
-			ownCards.SetHandSlotCard(0);
+			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
 		}
 		if(IsValidExpression() ){
 			// TODO display that the expression is valid
-			if(tempx = Actions.Validate){
+			if(tempx == Actions.Validate){
 				ownCards.SetHandSlotTime(5*CountCard ());
 
 				//check that the calculus is mathematically ok
-				int tempScore = ComputeOpponentScore ();
+				float? tempScore = ComputeOpponentScore ();
 				if(tempScore != null){
 					opponentScore = tempScore;
 				}
