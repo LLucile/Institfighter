@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour {
 		tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
 			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
-			if(waitingTime <= 0 && tempx != lastAction && expressionScroller < 3){ // if the card is immediatly available
+			if(waitingTime <= 0 ){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
@@ -55,14 +55,11 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if (tempx == Actions.Cancel) {
-			Debug.Log(expressionScroller);
-			expression[expressionScroller-1] = null;
-			ownCards.SetHandSlotTime(tempx,0);
-			expressionScroller --;
 			if(lastAction != Actions.None){
+				GameUI.Instance.SelectCard(playerNumber, (int)lastAction, false);
 				Debug.Log(expressionScroller);
 				expression[expressionScroller] = null;
-				ownCards.SetHandSlotTime(tempx, 0);
+				ownCards.SetHandSlotTime(lastAction,-1);
 				expressionScroller --;
 			}
 		}
@@ -71,7 +68,9 @@ public class PlayerScript : MonoBehaviour {
 			if(IsValidExpression() ){
 
 				Debug.Log ("IT IS VALID !");
-				ownCards.SetTime(5*CountCard ());
+				int waitingtime = 1*CountCard ();
+				Debug.Log ("waiting time = "+waitingtime);
+				ownCards.SetTime(waitingtime);
 				Debug.Log ("n cards =" + CountCard ());
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
