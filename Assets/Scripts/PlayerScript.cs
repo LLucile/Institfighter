@@ -56,10 +56,10 @@ public class PlayerScript : MonoBehaviour {
 			ownCards.SetHandSlotTime(0);
 			expressionScroller --;
 		}
-		if(tempx == Actions.Validate){
-			Debug.Log ("Expression valid !");
+
+		if(IsValidExpression() ){
 			// TODO display that the expression is valid
-			if(IsValidExpression() ){
+			if(tempx == Actions.Validate){
 				Debug.Log ("validate !");
 				ownCards.SetHandSlotTime(5*CountCard ());
 				Debug.Log ("n cards =" + CountCard ());
@@ -91,43 +91,83 @@ public class PlayerScript : MonoBehaviour {
 	float? ComputeOpponentScore(){
 		float? score = opponentScore;
 		if (expression [0] is Fonction) {
-			Fonction expression0 = expression [0] as Fonction;
-			if(expression[1] is Operateur){
-				Operateur expression1 = expression[1] as Operateur;
-				if(expression[2] is Fonction){
-					Fonction expression2 = expression[2] as Fonction;
-					score = expression1.Execute (expression0.Execute (opponentScore), expression2.Execute(opponentScore));
-				}
-				else{
-					Debug.Log ("wrong expression function+operator+operator");
-				}
-			}
-			else{
-				Debug.Log ("wrong expression fonction + not operator");
-			}
-		} 
-		else {
-			Operateur expression0 = expression[0] as Operateur;
-			if(expression[1] is Fonction){
-				Fonction expression1 = expression[1] as Fonction;
-				if(expression1.Function == Functions.b){
+			Fonction Firstmember = expression[0] as Fonction;
+			Debug.Log ("Is first member fonction ?" + (Firstmember != null));
+			if(Firstmember.Function == Functions.b){
+				if(expression[1] is Operateur){
+					Operateur Secondmember = expression[1] as Operateur;
+					Debug.Log ("Is second member operateur ?" + (Secondmember != null));
 					if(expression[2] == null){
-						Debug.Log ("valid expression");
-						score = expression0.Execute (expression1.Execute (opponentScore), opponentScore);
+						score = Secondmember.Execute (Firstmember.Execute(opponentScore), opponentScore);
+						Debug.Log ("New Score = "+score);
+						return score;
+					} else{
+						//not valid expression
+						Debug.Log ("Not valid expression Function.b + Operateur + whatever");
+						return opponentScore;
+					}
+				} else{
+					//not valid expression
+					Debug.Log ("Not valid expression Function.b + Fonction");
+					return opponentScore;
+				}
+			} else{
+				if(expression[1] is Operateur){
+					Operateur Secondmember = expression[1] as Operateur;
+					Debug.Log ("Is second member operateur ?" + (Secondmember != null));
+					if(expression[2] is Fonction){
+						Fonction Thirdmember = expression[2] as Fonction;
+						Debug.Log ("Is third member fonction ?" + (Thirdmember != null));
+						score = Secondmember.Execute(Firstmember.Execute(opponentScore), Thirdmember.Execute(opponentScore));
+						Debug.Log ("New score = " + score);
+						return score;
 					}
 					else{
-						Debug.Log("not valid expression operateur+fonction.b+smthg");
+						// this expression is not Function Operator Function type do not chance opponent score
+						Debug.Log ("Wrong expression Fonction + Operateur + Operateur");
+						return opponentScore;
 					}
 				}
 				else{
-					Debug.Log ("wrong expression operator + not fonction.b");
+					Debug.Log ("Wrong expression Fonction + Fonction + whatever");
+					return opponentScore;
+					//this expression is not Function Operator Function do not change score
+				}
+			}
+		}
+		else if (expression [0] is Operateur) {
+			Operateur Firstmember = expression[0] as Operateur;
+			Debug.Log ("Is first member operateur ?" + (Firstmember != null));
+			if(expression[1] is Fonction){
+				Fonction Secondmember = expression[1] as Fonction;
+				Debug.Log ("Is second member fonction ?" + (Secondmember != null));
+				if(Secondmember.Function == Functions.b){
+					if(expression[2] == null){
+						score = Firstmember.Execute (opponentScore, Secondmember.Execute(opponentScore));
+						Debug.Log ("New score is "+ score);
+					}
+					else{
+						//not valid expression
+						Debug.Log ("Wrong expression Operateur + Fonction.b + whatever");
+						return opponentScore;
+					}
+				}
+				else{
+					Debug.Log ("Wrong expression Operateur + whatever not Function.b");
+					return opponentScore;
 				}
 			}
 			else{
-				Debug.Log ("wrong expression operator + operator");
+				Debug.Log ("Wrong expression Operateur + whatever not even Function");
+				return opponentScore;
 			}
 		}
-		return score;
+		else{
+			Debug.Log ("Holy Crap ! Unidentified Flying Object !");
+			return opponentScore;
+		}
+		Debug.LogError ("WE WERE LIKE NEVER SUPPOSED TO GET THERE !");
+		return opponentScore;
 	}
 	
 
@@ -187,47 +227,58 @@ public class PlayerScript : MonoBehaviour {
 		else {
 			return false;
 		}
-		//if (expression [0] is Fonction) {
-			//Debug.Log ("expression0 is a function");
-			//Fonction expression0 = expression [0] as Fonction;
-			//if (expression [1] is Operateur) {
-				//Debug.Log ("expression1 is an operator");
-				//if (expression [2] is Fonction) {
-					//Debug.Log ("expression2 is a function");
-					//Debug.Log ("Valid expression !");
-					//return true;
-				//} else {
-					//Debug.Log ("expression2 is not a function");
-					//Debug.Log ("[IsValidExpression] wrong expression function+operator+operator");
-					//return false;
-				/*}
-			} else {
-				//Debug.Log ("[IsValidExpression]wrong expression fonction.b + not operator");
-				return false;
-			}
-		} else if (expression [0] is Operateur) {
-			if (expression [1] is Fonction) {
-				Fonction expression1 = expression [1] as Fonction;
-				if (expression1.Function == Functions.b) {
-					if (expression [2] == null) {
-						//Debug.Log ("[IsValidExpression]valid expression");
-						return true;
-					} else {
-						//Debug.Log ("[IsValidExpression]not valid expression operateur+fonction.b+smthg");
+		/*
+		if (expressionScroller == 0) {
+			return false;
+		}
+		if (expression [0] != null) {
+			if (expression [0] is Fonction) {
+				Fonction expression0 = (Fonction) expression[0];
+				if (expression [1] == null) {
+					return true;
+				} 
+				else {
+					if (expression [1] is Operateur) {
+						if(expression[2] != null){
+							if(expression[2] is Fonction){
+								return true;
+							}
+							else{
+								return false;
+							}
+						}
+						else{
+							if(expression0.Function == Functions.b){
+								return true;
+							}
+							else{
+								return false;
+							}
+						}
+					} 
+					else {
 						return false;
 					}
-				} else {
-					//Debug.Log ("[IsValidExpression]wrong expression operator + not fonction.b");
+				}
+			} 
+			else {
+				if(expression[1] is Fonction){
+					Fonction expression1 = (Fonction) expression[1];
+					if(expression1.Function == Functions.b){
+						return true;
+					}
+					else{
+						return false;
+					}
+				}
+				else{
 					return false;
 				}
-			} else {
-				//Debug.Log ("[IsValidExpression]wrong expression operator + operator");
-				return false;
 			}
-		} 
+		}
 		else {
-			// void expression
 			return false;
 		}*/
 	}
+
 }
