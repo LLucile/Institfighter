@@ -31,15 +31,15 @@ public class Fonction : Card {
 	//public Texture2D getGraph(){
 		//lier avec fonctions shaders
 	//}
-	public float? Execute(float score){
+	public override float? Execute(float? score, float? score2){
 		float? res = null;
 		switch(Function)
 		{
 		case Functions.e:
-			res = Mathf.Exp(score);
+			res = Mathf.Exp((float) score);
 			break;
 		case Functions.ln:
-			res = Mathf.Log(score);
+			res = Mathf.Log((float) score);
 			break;
 		case Functions.ax:
 			res = (float?) (constant*score);
@@ -48,46 +48,46 @@ public class Fonction : Card {
 			res = (float?) constant;
 			break;
 		case Functions.sqrtXExpA:
-			res = Mathf.Pow(score,1f/(float)constant);
+			res = Mathf.Pow((float) score,1f/(float)constant);
 			break;
 		case Functions.pow:
-			res = Mathf.Pow(score,(float)constant);
+			res = Mathf.Pow((float) score,(float)constant);
 			break;
 		case Functions.sin:
-			res = Mathf.Sin(score);
+			res = Mathf.Sin((float) score);
 			break;
 		case Functions.arcsin:
-			res = Mathf.Asin(score);
+			res = Mathf.Asin((float) score);
 			break;
 		case Functions.sinh:
-			res = (Mathf.Exp(score)-Mathf.Exp(-score))/2;
+			res = (Mathf.Exp((float) score)-Mathf.Exp(-(float) score))/2;
 			break;
 		case Functions.arcsinh:
-			res = Mathf.Log(score+Mathf.Sqrt(1+Mathf.Pow(score,2)));
+			res = Mathf.Log((float) score+Mathf.Sqrt(1+Mathf.Pow((float) score,2)));
 			break;
 		case Functions.cos:
-			res = Mathf.Cos(score);
+			res = Mathf.Cos((float) score);
 			break;
 		case Functions.arccos:
-			res = Mathf.Acos(score);
+			res = Mathf.Acos((float) score);
 			break;
 		case Functions.cosh:
-			res = (Mathf.Exp(score)+Mathf.Exp(-score))/2;
+			res = (Mathf.Exp((float) score)+Mathf.Exp(-(float) score))/2;
 			break;
 		case Functions.arccosh:
-			res = Mathf.Log(score+(Mathf.Sqrt(1+Mathf.Pow(score,2))*Mathf.Sqrt(1-Mathf.Pow(score,2))));
+			res = Mathf.Log((float) score+(Mathf.Sqrt(1+Mathf.Pow((float) score,2))*Mathf.Sqrt(1-Mathf.Pow((float) score,2))));
 			break;
 		case Functions.tan:
-			res = Mathf.Tan(score);
+			res = Mathf.Tan((float) score);
 			break;
 		case Functions.tanh:
-			res = Mathf.Atan(score);
+			res = Mathf.Atan((float) score);
 			break;
 		case Functions.arctan:
-			res = (Mathf.Exp(score)-Mathf.Exp(-score))/(Mathf.Exp(score)+Mathf.Exp(-score));
+			res = (Mathf.Exp((float) score)-Mathf.Exp(-(float) score))/(Mathf.Exp((float) score)+Mathf.Exp(-(float) score));
 			break;
 		case Functions.arctanh:
-			res = 1/2*(Mathf.Log(1+score)-Mathf.Log(1-score));
+			res = 1/2*(Mathf.Log(1+(float) score)-Mathf.Log(1-(float) score));
 			break;
 		}
 

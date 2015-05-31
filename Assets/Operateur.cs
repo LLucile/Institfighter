@@ -8,7 +8,7 @@ public class Operateur : Card {
 		this.weight = weight;
 		this.Operator = Operator;
 	}
-	public float? Execute(float? f1, float? f2){
+	public override float? Execute(float? f1, float? f2){
 		float? res=null;
 		switch(Operator)
 		{
