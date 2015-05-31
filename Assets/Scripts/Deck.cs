@@ -40,7 +40,7 @@ public class Deck {
 	    fun.Add(new Fonction(5 ,Functions.tanh         ,"tangente hyperbolique"));
 	    fun.Add(new Fonction(5 ,Functions.arctanh      ,"arc-tangeante hyperbolique"));
 
-		Debug.Log ("is fun empty ? " + (this.fun[0] == null));
+		Debug.Log ("is fun empty ? " + (fun == null));
 		Debug.Log ("Deck of cards has been created");
 	}
     // ---------------------------------------------------------------

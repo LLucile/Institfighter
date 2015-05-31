@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour {
 				// add IT to the expression and set it as unavailable in the hand
 				lastAction = tempx;
 				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
+				Debug.Log ("Card is "+ expression[expressionScroller].name);
 				expressionScroller ++;
 				ownCards.SetHandSlotTime(Mathf.Infinity);
 			}
