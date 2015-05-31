@@ -51,7 +51,7 @@ public class PlayerScript : MonoBehaviour {
 				Debug.Log ("last action is "+lastAction);
 			}
 			else{
-				//Debug.Log ("Waiting time is not zero : " + waitingTime);
+				Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
@@ -59,10 +59,17 @@ public class PlayerScript : MonoBehaviour {
 			expression[expressionScroller-1] = null;
 			ownCards.SetHandSlotTime(tempx,0);
 			expressionScroller --;
+			if(lastAction != Actions.None){
+				Debug.Log(expressionScroller);
+				expression[expressionScroller] = null;
+				ownCards.SetHandSlotTime(tempx, 0);
+				expressionScroller --;
+			}
 		}
 		if(tempx == Actions.Validate){
 			// TODO display that the expression is valid
 			if(IsValidExpression() ){
+
 				Debug.Log ("IT IS VALID !");
 				ownCards.SetTime(5*CountCard ());
 				Debug.Log ("n cards =" + CountCard ());
