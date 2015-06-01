@@ -18,18 +18,21 @@ public class PlayerScript : MonoBehaviour {
 
 	// expression browsing variables
 	private int expressionScroller = 0;
-	private Card[] expression = new Card[5];
+	private Card[] expression = new Card[4];
 
 	// some useful variables
-	private Actions lastAction = Actions.None;
+	private Actions[] lastAction = new Actions[4];
+	private int lastActionScroller = 0;
 	private Actions tempx;
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("PlayerScript started");
 		ownCards = new Hand(playerNumber);
 		//Debug.Log ("Cards : " + ownCards.CB.name + " " + ownCards.CT.name + " " + ownCards.CR.name + " " + ownCards.CL.name);
-		Debug.Log ("Start successfull");
+		for (int i = 0; i < lastAction.Length; i++) {
+			lastAction[i] = Actions.None;
+		}
+		Debug.Log ("PlayerScript successfully started");
 	} 
 
 	void Update(){
@@ -37,32 +40,38 @@ public class PlayerScript : MonoBehaviour {
 		// Debug.Log ("w i");
 		tempx = GetAction ();
 		if ( ((int?) tempx) < 4) { //if the user tried to select a card
-			Debug.Log (tempx);
 			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0 ){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
 				// add IT to the expression and set it as unavailable in the hand
-				lastAction = tempx;
+				lastAction[lastActionScroller] = tempx;
 				Debug.Log ("expressionScroller = " + expressionScroller);
 				Debug.Log ("last action is "+lastAction);
-				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction);
+				expression[expressionScroller] = ownCards.GetHandSlotCard(lastAction[lastActionScroller]);
 				Debug.Log ("Card is " + expression[expressionScroller].name);
 				expressionScroller ++;
-				ownCards.SetHandSlotTime(lastAction, Mathf.Infinity);
+				ownCards.SetHandSlotTime(lastAction[lastActionScroller], Mathf.Infinity);
+				lastActionScroller ++;
 				Debug.Log ("last action is " + lastAction);
 			}
 			else{
-				//Debug.Log ("Waiting time is not zero : " + waitingTime);
+				Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
-			if(lastAction != Actions.None){
-				GameUI.Instance.SelectCard(playerNumber, (int)lastAction, false);
-				Debug.Log(expressionScroller);
-				expression[expressionScroller] = null;
-				ownCards.SetHandSlotTime(lastAction,-1);
-				expressionScroller --;
-				Debug.Log(expressionScroller);
+			Debug.Log("Received cancel order");
+			for(int i = lastActionScroller; i >= 0; i--){
+				if(lastAction[i] != Actions.None){
+					//unselect card in UI
+					GameUI.Instance.SelectCard(playerNumber, (int)lastAction[i], false);
+					//set card as available
+					ownCards.SetHandSlotTime(lastAction[i],-1);
+					expression[expressionScroller] = null;
+					lastAction[i] = Actions.None;
+					expressionScroller --;
+					Debug.Log("expressionScroller = " +expressionScroller);
+				}
+				lastActionScroller = 0;
 			}
 		}
 		if(tempx == Actions.Validate){
