@@ -41,6 +41,7 @@ public class GameUI : MonoBehaviour {
 
 	public void SetHealth(int player, float amount)
 	{
+		Tools.LogJulien ("GameUI::SetHealth(" + player + ", " + amount + ")");
 		if (player == 2)
 		{
 			graphViewer.material.SetFloat("_Score", amount);
@@ -50,7 +51,8 @@ public class GameUI : MonoBehaviour {
 	}
 
 	public void CreateCard(int player, int number, Card card){
-
+		
+		Tools.LogJulien ("GameUI::CreateCard(" + player + ", " + number + ", " + card.m_id + ")");
 		RectTransform parent;
 		if (player == 1) {
 			parent = p2cards [number];
@@ -65,7 +67,7 @@ public class GameUI : MonoBehaviour {
 	}
 
 	public void RemoveCard (int player, int number){
-		Debug.Log("GameUi::RemoveCard");
+		Tools.LogJulien("GameUi::RemoveCard(" + player + ", " + number + ")");
 		UICard card = GetCard (player, number);
 		if (card != null)
 			Destroy (card.gameObject);
@@ -73,26 +75,12 @@ public class GameUI : MonoBehaviour {
 
 	public void SelectCard(int player, int number, bool selected)
 	{
-		Debug.Log("GameUi::SelectCard");
+		Tools.LogJulien("GameUi::SelectCard(" + player + ", " + number + ", " + selected + ")");
 		UICard card = GetCard (player, number);
 		card.Select(selected);
 
 		if (player == 1)
 			updateGraphFunctionNorOperator (selected, card.m_card);
-	}
-	
-	public void Shake(float intensity){
-		cameraShake.ShakeCamera(intensity, 4f, new Vector3());
-	}
-
-	public void resetGraphViewer (){
-		graphViewer.material.SetFloat ("_FuncA", -1f);
-		graphViewer.material.SetFloat ("_FuncB", -1f);
-		graphViewer.material.SetFloat ("_Operator", -1f);
-		graphViewer.material.SetFloat ("_Score", Mathf.PI);
-		graphViewer.material.SetFloat("_FuncInterpolA", 0f);
-		graphViewer.material.SetFloat("_FuncInterpolB", 0f);
-		graphViewer.material.SetFloat("_FuncInterpolResult", 0f);
 	}
 
 	UICard GetCard(int player, int number){
@@ -106,9 +94,24 @@ public class GameUI : MonoBehaviour {
 		return parent.GetComponentInChildren<UICard> ();
 	}
 
-	public void onValidate (bool isValidExpression)
+	public void onPlayerValidateSelectedCards (bool isValidExpression)
 	{
+		if (isValidExpression)
+			cameraShake.ShakeCamera(.7f, 4f, new Vector3());
+		else
+			cameraShake.ShakeCamera(.7f, 4f, new Vector3(1f, 0f, 0f));
 		resetGraphViewer ();
+	}
+
+	private void resetGraphViewer (){
+		Tools.LogJulien("GameUi::resetGraphViewer()");
+		graphViewer.material.SetFloat ("_FuncA", -1f);
+		graphViewer.material.SetFloat ("_FuncB", -1f);
+		graphViewer.material.SetFloat ("_Operator", -1f);
+		graphViewer.material.SetFloat ("_Score", Mathf.PI);
+		graphViewer.material.SetFloat("_FuncInterpolA", 0f);
+		graphViewer.material.SetFloat("_FuncInterpolB", 0f);
+		graphViewer.material.SetFloat("_FuncInterpolResult", 0f);
 	}
 	
 	private void updateGraphFunctionNorOperator (bool selected, Card card)

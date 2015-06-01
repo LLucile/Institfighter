@@ -68,14 +68,15 @@ public class PlayerScript : MonoBehaviour {
 		if(tempx == Actions.Validate){
 			Debug.Log ("validate");
 			bool isValidExpression = IsValidExpression();
-			GameUI.Instance.onValidate(isValidExpression);
+
+			GameUI.Instance.onPlayerValidateSelectedCards(isValidExpression);
+
 			// TODO display that the expression is valid
 			if(isValidExpression){
 				Debug.Log ("IT IS VALID !");
 				int waitingtime = 1*CountCard ();
 				Debug.Log ("waiting time = "+waitingtime);
 				ownCards.SetTime(waitingtime);
-				GameUI.Instance.Shake (0.7f);
 
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
