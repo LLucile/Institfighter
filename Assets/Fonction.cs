@@ -21,7 +21,7 @@ public class Fonction : Card {
 		int r;
 		if(Function == Functions.sqrtXExpA){
 			do{
-				r = (int) Random.Range(-10.0F, 10.0F);
+				r = (int) Random.Range(-0.0F, 10.0F);
 			}while(r==0.0F);
 		}
 		else
@@ -90,6 +90,10 @@ public class Fonction : Card {
 		case Functions.arctanh:
 			res = 1/2*(Mathf.Log(1+(float) score)-Mathf.Log(1-(float) score));
 			break;
+		}
+		if (float.IsNaN ((float) res) |  (res == Mathf.Infinity) | float.IsNegativeInfinity((float) res) | float.IsPositiveInfinity((float) res)){
+			Debug.Log("res = "+res);
+			res = null;
 		}
 
 		return res;

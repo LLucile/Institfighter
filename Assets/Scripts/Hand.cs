@@ -119,6 +119,7 @@ public class Hand {
 
 	public void GetNewCards(){
 		if (getCard == true) {
+			//Debug.Log("Asking for a new card");
 			if ((TL < 0.5) && (TL > 0)) {
 				Debug.Log ("get new card");
 				CL = TakeCard (Position.Left, Types.Function);
