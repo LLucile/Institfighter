@@ -46,7 +46,7 @@ public class GameUI : MonoBehaviour {
 			graphViewer.material.SetFloat("_Score", amount);
 		}
 		playersScore[player].text = amount+"";
-		playersHealth[player].fillAmount = Mathf.Abs(Mathf.Max(amount, GameManager.Instance.maxScore)/GameManager.Instance.maxScore);
+		playersHealth[player].fillAmount = Mathf.Abs(Mathf.Min(amount, GameManager.Instance.maxScore)/GameManager.Instance.maxScore);
 	}
 
 	public void CreateCard(int player, int number, Card card){

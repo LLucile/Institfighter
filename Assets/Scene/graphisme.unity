@@ -265,10 +265,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 410770, guid: 8214b5692ded1594989ad197a661fa23, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -2.78999996
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8214b5692ded1594989ad197a661fa23, type: 2}
   m_IsPrefabParent: 0
@@ -640,3 +636,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!23 &2021238110 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 2314126, guid: 8214b5692ded1594989ad197a661fa23,
+    type: 2}
+  m_PrefabInternal: {fileID: 880441076}
