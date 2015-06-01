@@ -5,6 +5,7 @@ public class Operateur : Card {
 	
 	private Operators Operator;
 	public Operateur(int weight, Operators Operator, string name){
+		this.m_id = (int) Operator;
 		this.weight = weight;
 		this.Operator = Operator;
 		this.name = name;

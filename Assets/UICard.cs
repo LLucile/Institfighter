@@ -7,6 +7,7 @@ public class UICard : MonoBehaviour {
 	public Text functionName;
 	public RectTransform active;
 	public RectTransform inactive;
+	public Card m_card;
 
 	void Awake(){
 		gameObject.SetActive (false);
@@ -23,7 +24,8 @@ public class UICard : MonoBehaviour {
 	}
 
 	public void Setup(Card card){
-		Unselect ();
+		m_card = card;
+		Select (false);
 		if (card is Operateur) {
 			functionName.fontSize = 72;
 		}
@@ -31,13 +33,8 @@ public class UICard : MonoBehaviour {
 		gameObject.SetActive (true);
 	}
 
-	public void Select(){
-		inactive.gameObject.SetActive (false);
-		active.gameObject.SetActive (true);
-	}
-
-	public void Unselect(){
-		inactive.gameObject.SetActive (true);
-		active.gameObject.SetActive (false);
+	public void Select(bool shouldBeSelected){
+		inactive.gameObject.SetActive (!shouldBeSelected);
+		active.gameObject.SetActive (shouldBeSelected);
 	}
 }

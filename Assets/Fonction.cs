@@ -7,6 +7,7 @@ public class Fonction : Card {
 	public int? constant;
 	
 	public Fonction(int weight, Functions Function, string name){
+		this.m_id = (int) Function;
 		this.weight = weight;
 		this.Function = Function;
 		this.name = name;

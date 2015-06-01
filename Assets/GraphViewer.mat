@@ -33,15 +33,15 @@ Material:
       data:
         first:
           name: _FuncA
-        second: 0
+        second: 2.79999995
       data:
         first:
           name: _FuncB
-        second: 0
+        second: 17
       data:
         first:
           name: _Operator
-        second: 0
+        second: 2
       data:
         first:
           name: _ValA
@@ -49,23 +49,23 @@ Material:
       data:
         first:
           name: _ValB
-        second: 1
+        second: 0
       data:
         first:
           name: _Score
-        second: 4.23999977
+        second: 10
       data:
         first:
           name: _FuncInterpolA
-        second: 0
+        second: 1
       data:
         first:
           name: _FuncInterpolB
-        second: 0
+        second: 1
       data:
         first:
           name: _FuncInterpolResult
-        second: 0
+        second: 1
     m_Colors:
       data:
         first:

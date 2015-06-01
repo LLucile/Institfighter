@@ -7,9 +7,9 @@
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		
-		_FuncA ("FuncA", Range(0, 17)) = 0
-		_FuncB ("FuncB", Range(0, 17)) = 0
-		_Operator ("Operator", Range(0, 3)) = 0
+		_FuncA ("FuncA", Range(-1, 17)) = -1
+		_FuncB ("FuncB", Range(-1, 17)) = -1
+		_Operator ("Operator", Range(-1, 3)) = -1
 		_ValA ("ValA", Float) = 1.0
 		_ValB ("ValB", Float) = 1.0
 		_Score ("Score", Float) = 0.0
@@ -215,10 +215,13 @@
 
 		void surf (Input IN, inout SurfaceOutputStandard o)
 		{
-			float vsA = computeValue(int(_FuncA), _Score);
-			float vsB = computeValue(int(_FuncB), _Score);
-			float absScoreResult = max(abs(computeOperator(_Operator, vsA, vsB)), 1.);
-			float absScore = max(abs(_Score), 1.);
+			float vsA = (_FuncA >= 0)    ? computeValue(int(_FuncA), _Score)         : 0.;
+			float vsB = (_FuncB >= 0)    ? computeValue(int(_FuncB), _Score)         : 0.;
+			float vsR = (_Operator >= 0) ? computeOperator(int(_Operator), vsA, vsB) : 0.;
+			float absScoreResult = max(abs(vsR), max(abs(vsA), max(abs(vsB), 1.)));
+			if (isnan(absScoreResult))
+				absScoreResult = 1.;
+			float absScore = max(abs(_Score), 3.1415);
 
 			float2 nuv = IN.uv_MainTex.xy * 2. - 1.;
 			float2 uv = nuv;
@@ -230,14 +233,21 @@
 			float vB = computeValue(int(_FuncB), uv.x);
 			float vR = computeOperator(_Operator, vA, vB);
 
-			// Albedo comes from a texture tinted by color
-			fixed4 c = drawMark(nuv, IN.screenPos.xy) * _Color;
+			float vnA = computeValue(int(_FuncA), uv.x);
+			float vnB = computeValue(int(_FuncB), uv.x);
+			float vnR = computeOperator(_Operator, vA, vB);
+
+			float2 screenPos = IN.screenPos.xy;
+			fixed4 c = drawMark(nuv, screenPos) * _Color;
+			screenPos.x += IN.screenPos.x;
 			if (IN.uv_MainTex.x <= _FuncInterpolA)
-				c += plot(uv, IN.screenPos.xy, vA, absScoreResult) * _FnAColor;
+				c += plot(uv, screenPos, vA, absScoreResult) * _FnAColor;
+			screenPos.x += IN.screenPos.x;
 			if (IN.uv_MainTex.x <= _FuncInterpolB)
-				c += plot(uv, IN.screenPos.xy, vB, absScoreResult) * _FnBColor;
+				c += plot(uv, screenPos, vB, absScoreResult) * _FnBColor;
+			screenPos.x += IN.screenPos.x;
 			if (IN.uv_MainTex.x <= _FuncInterpolResult)
-				c += plot(uv, IN.screenPos.xy, vR, absScoreResult);
+				c += plot(uv, screenPos, vR, absScoreResult);
 
 			o.Albedo = c.rgb;
 			// Metallic and smoothness come from slider variables

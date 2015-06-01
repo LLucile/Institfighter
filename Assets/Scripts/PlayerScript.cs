@@ -64,8 +64,10 @@ public class PlayerScript : MonoBehaviour {
 			}
 		}
 		if(tempx == Actions.Validate){
+			bool isValidExpression = IsValidExpression();
+			GameUI.Instance.onValidate(isValidExpression);
 			// TODO display that the expression is valid
-			if(IsValidExpression() ){
+			if(isValidExpression){
 
 				Debug.Log ("IT IS VALID !");
 				int waitingtime = 1*CountCard ();

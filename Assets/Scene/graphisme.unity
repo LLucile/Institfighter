@@ -168,7 +168,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a79f9727a500e6448982e90fd51e86f8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .206
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -355,6 +355,14 @@ Prefab:
       propertyPath: cameraShake
       value: 
       objectReference: {fileID: 1958052818}
+    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: chalkBoard
+      value: 
+      objectReference: {fileID: 1924045563}
+    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: graphViewer
+      value: 
+      objectReference: {fileID: 1924045563}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
   m_IsPrefabParent: 0
@@ -458,6 +466,11 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 497228, guid: e3cea1d1e2f7b364e911a5bf33564396, type: 2}
   m_PrefabInternal: {fileID: 789982241}
+--- !u!23 &1924045563 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 2314126, guid: 8214b5692ded1594989ad197a661fa23,
+    type: 2}
+  m_PrefabInternal: {fileID: 880441076}
 --- !u!1 &1958052812
 GameObject:
   m_ObjectHideFlags: 0
