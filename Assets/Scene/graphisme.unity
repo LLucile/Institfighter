@@ -352,10 +352,6 @@ Prefab:
       value: 
       objectReference: {fileID: 1958052818}
     - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
-      propertyPath: chalkBoard
-      value: 
-      objectReference: {fileID: 1924045563}
-    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
       propertyPath: graphViewer
       value: 
       objectReference: {fileID: 1924045563}
@@ -636,8 +632,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!23 &2021238110 stripped
-MeshRenderer:
-  m_PrefabParentObject: {fileID: 2314126, guid: 8214b5692ded1594989ad197a661fa23,
-    type: 2}
-  m_PrefabInternal: {fileID: 880441076}

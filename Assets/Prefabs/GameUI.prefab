@@ -337,9 +337,11 @@ MonoBehaviour:
   - {fileID: 169096}
   - {fileID: 106096}
   playersHealth:
-  - {fileID: 11485004}
   - {fileID: 11492422}
-  playersScore: []
+  - {fileID: 11485004}
+  playersScore:
+  - {fileID: 11497888}
+  - {fileID: 11455510}
   templates:
   - {fileID: 11495540, guid: 30d4b010b0c208d4db7982bb773692f3, type: 2}
   - {fileID: 11474244, guid: b55ad4271b7021740b682399f1c6bca0, type: 2}
@@ -354,6 +356,7 @@ MonoBehaviour:
   - {fileID: 22436194}
   - {fileID: 22441474}
   cameraShake: {fileID: 0}
+  graphViewer: {fileID: 0}
 --- !u!114 &11426404
 MonoBehaviour:
   m_ObjectHideFlags: 1
