@@ -32,6 +32,7 @@ public class PlayerScript : MonoBehaviour {
 		for (int i = 0; i < lastAction.Length; i++) {
 			lastAction[i] = Actions.None;
 		}
+		GameUI.Instance.SetHealth(playerNumber, opponentScore);
 		Debug.Log ("PlayerScript successfully started");
 	} 
 

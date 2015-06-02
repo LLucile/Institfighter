@@ -355,6 +355,14 @@ Prefab:
       propertyPath: graphViewer
       value: 
       objectReference: {fileID: 1924045563}
+    - target: {fileID: 11455510, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: m_Text
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497888, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: m_Text
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
   m_IsPrefabParent: 0
