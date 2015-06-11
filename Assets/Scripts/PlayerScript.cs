@@ -39,7 +39,9 @@ public class PlayerScript : MonoBehaviour {
 		// get the user input
 		// Debug.Log ("w i");
 		tempx = GetAction ();
-		if ( ((int?) tempx) < 4) { //if the user tried to select a card
+		if ( ((int?) tempx) < 4) { 
+		//if the user tried to select a card
+			// get the time to wait before the card is going to be available
 			float? waitingTime = ownCards.GetHandSlotWaitingTime(tempx);
 			if(waitingTime <= 0 ){ // if the card is immediatly available
 				Debug.Log ("Grabbed a card from the hand !");
@@ -55,7 +57,7 @@ public class PlayerScript : MonoBehaviour {
 				Debug.Log ("last action is " + lastAction);
 			}
 			else{
-				Debug.Log ("Waiting time is not zero : " + waitingTime);
+				//Debug.Log ("Waiting time is not zero : " + waitingTime);
 			}
 		}
 		if (tempx == Actions.Cancel) {
@@ -84,20 +86,22 @@ public class PlayerScript : MonoBehaviour {
 			if(isValidExpression){
 				Debug.Log ("IT IS VALID !");
 				int waitingtime = 1*CountCard ();
-				Debug.Log ("waiting time = "+waitingtime);
+				Debug.Log ("waiting time = " + waitingtime);
 				ownCards.SetTime(waitingtime);
 
 				//check that the calculus is mathematically ok
 				float? tempScore = ComputeOpponentScore ();
 				expressionScroller = 0;
+				lastActionScroller = 0;
 				Debug.Log ("expressionScroller after Validate = " + expressionScroller);
+				Debug.Log("" + expression[0].name+"("+ opponentScore+")"+expression[1].name+" "+expression[2].name+"("+opponentScore+") = " + tempScore);
 				if(tempScore != null){
 					opponentScore = (float) tempScore;
-					Debug.Log(opponentScore);
-					GameUI.Instance.SetHealth(playerNumber, opponentScore);
+					//GameUI.Instance.SetHealth(playerNumber, opponentScore);
 				}
 				else{
 					// TODO forbidden mathematical operation feedback (sad noise)
+					Debug.Log("Forbidden mathematical operation !");
 				}
 				expression[0] = null;
 				expression[1] = null;
