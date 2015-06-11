@@ -42,7 +42,7 @@ public class GameUI : MonoBehaviour {
 	public void SetHealth(int player, float amount)
 	{
 		Tools.LogJulien ("GameUI::SetHealth(" + player + ", " + amount + ")");
-		if (player == 2)
+		if (player == 1)
 		{
 			graphViewer.material.SetFloat("_Score", amount);
 		}
@@ -79,7 +79,7 @@ public class GameUI : MonoBehaviour {
 		UICard card = GetCard (player, number);
 		card.Select(selected);
 
-		if (player == 1)
+		if (player == 0)
 			updateGraphFunctionNorOperator (selected, card.m_card);
 	}
 

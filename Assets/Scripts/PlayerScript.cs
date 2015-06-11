@@ -11,6 +11,7 @@ public class PlayerScript : MonoBehaviour {
 	public string sButtonCancel = "Back";
 
 	//oponnent score
+	public int opponentPlayerIndex = 0;
 	public float opponentScore = 10;
 
 	// hand
@@ -32,6 +33,7 @@ public class PlayerScript : MonoBehaviour {
 		for (int i = 0; i < lastAction.Length; i++) {
 			lastAction[i] = Actions.None;
 		}
+		GameUI.Instance.SetHealth(opponentPlayerIndex, opponentScore);
 		Debug.Log ("PlayerScript successfully started");
 	} 
 
@@ -98,6 +100,8 @@ public class PlayerScript : MonoBehaviour {
 				if(tempScore != null){
 					opponentScore = (float) tempScore;
 					//GameUI.Instance.SetHealth(playerNumber, opponentScore);
+					Debug.Log(opponentScore);
+					GameUI.Instance.SetHealth(opponentPlayerIndex, opponentScore);
 				}
 				else{
 					// TODO forbidden mathematical operation feedback (sad noise)

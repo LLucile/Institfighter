@@ -87,6 +87,12 @@ NavMeshSettings:
     cellSize: .166666672
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &536440326 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11497888, guid: f1138bab598e0b141a4d16f6292fa71b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1220645617}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &789982241
 Prefab:
   m_ObjectHideFlags: 0
@@ -125,6 +131,10 @@ Prefab:
     - target: {fileID: 497228, guid: e3cea1d1e2f7b364e911a5bf33564396, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11433190, guid: e3cea1d1e2f7b364e911a5bf33564396, type: 2}
+      propertyPath: opponentPlayerIndex
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3cea1d1e2f7b364e911a5bf33564396, type: 2}
@@ -268,6 +278,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8214b5692ded1594989ad197a661fa23, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &978130060 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11492422, guid: f1138bab598e0b141a4d16f6292fa71b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1220645617}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+--- !u!114 &1045426577 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11485004, guid: f1138bab598e0b141a4d16f6292fa71b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1220645617}
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1220645617
 Prefab:
   m_ObjectHideFlags: 0
@@ -352,13 +374,33 @@ Prefab:
       value: 
       objectReference: {fileID: 1958052818}
     - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
-      propertyPath: chalkBoard
-      value: 
-      objectReference: {fileID: 1924045563}
-    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
       propertyPath: graphViewer
       value: 
       objectReference: {fileID: 1924045563}
+    - target: {fileID: 11455510, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: m_Text
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11497888, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: m_Text
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: playersHealth.Array.data[0]
+      value: 
+      objectReference: {fileID: 1045426577}
+    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: playersHealth.Array.data[1]
+      value: 
+      objectReference: {fileID: 978130060}
+    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: playersScore.Array.data[0]
+      value: 
+      objectReference: {fileID: 1791235145}
+    - target: {fileID: 11412938, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
+      propertyPath: playersScore.Array.data[1]
+      value: 
+      objectReference: {fileID: 536440326}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1138bab598e0b141a4d16f6292fa71b, type: 2}
   m_IsPrefabParent: 0
@@ -458,6 +500,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23fc05c833d44264b99234afa8a149ad, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1791235145 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11455510, guid: f1138bab598e0b141a4d16f6292fa71b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1220645617}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!4 &1888824493 stripped
 Transform:
   m_PrefabParentObject: {fileID: 497228, guid: e3cea1d1e2f7b364e911a5bf33564396, type: 2}
@@ -636,8 +684,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!23 &2021238110 stripped
-MeshRenderer:
-  m_PrefabParentObject: {fileID: 2314126, guid: 8214b5692ded1594989ad197a661fa23,
-    type: 2}
-  m_PrefabInternal: {fileID: 880441076}
